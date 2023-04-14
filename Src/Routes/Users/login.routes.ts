@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { loginUserController } from "../../Controller/Users/Login.controller";
+import { loginController } from "../../Controller/Users/Login.controller";
+import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
 
 const router = Router();
 
-// <------------------------------------for Login User------------------------------------------------->
-router.post("/", loginUserController);
+//* <------------------------------------for Login User------------------------------------------------->
+router.post("/", asyncMiddleware(loginController));
 
 export default router;
