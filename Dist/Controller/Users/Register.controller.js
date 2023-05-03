@@ -19,11 +19,12 @@ const Response_helper_1 = require("../../Helper/Response.helper");
 const Register_service_1 = require("../../Service/Register.service");
 const User_service_1 = require("../../Service/User.service");
 const RegisterController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { phoneNumber, email } = req.body;
+    const { phoneNumber, email, username } = req.body;
     //*checking if email already exists
     const isEmailExist = yield (0, User_service_1.isUserEmailAlreadyExistService)(email);
     //*check if number already exists
     const isNumberExist = yield (0, User_service_1.isUserNumberAlreadyExistService)(phoneNumber);
+    const isUsername = yield (0, Register_service_1.checkUsernameService)(username);
     //* return error if email is available
     if (isEmailExist.length > 0) {
         return (0, Response_helper_1.errorResponse)(res, {
@@ -37,6 +38,13 @@ const RegisterController = (req, res) => __awaiter(void 0, void 0, void 0, funct
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.FORBIDDEN,
             message: ResponseMessage_1.default.NUMBER_ALREADY_EXIST,
+            errors: {},
+        });
+    }
+    else if (isUsername.length > 0) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.FORBIDDEN,
+            message: ResponseMessage_1.default.USERNAME_ALREADY_EXISTS,
             errors: {},
         });
     }

@@ -27,7 +27,17 @@ const createRoleService = (name) => __awaiter(void 0, void 0, void 0, function* 
 exports.createRoleService = createRoleService;
 // * find the role on the base of role name
 const searchRoleByRoleName = (name) => __awaiter(void 0, void 0, void 0, function* () {
-    const role = yield Role_Model_1.default.find({ name: { $eq: name } });
+    const role = yield Role_Model_1.default.aggregate([
+        {
+            $match: { name: { $eq: name } },
+        },
+        {
+            $project: {
+                _id: 1,
+                name: 1,
+            },
+        },
+    ]);
     return role;
 });
 exports.searchRoleByRoleName = searchRoleByRoleName;
@@ -43,10 +53,16 @@ const updateRoleService = (roleId, name) => __awaiter(void 0, void 0, void 0, fu
 exports.updateRoleService = updateRoleService;
 // * find the role on the base of roleId
 const getRoleByRoleId = (roleId) => __awaiter(void 0, void 0, void 0, function* () {
-    const role = Role_Model_1.default.aggregate([
+    const role = yield Role_Model_1.default.aggregate([
         {
             $match: {
                 _id: { $eq: new mongoose_1.Types.ObjectId(roleId) },
+            },
+        },
+        {
+            $project: {
+                _id: 1,
+                name: 1,
             },
         },
     ]);

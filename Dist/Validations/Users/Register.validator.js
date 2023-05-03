@@ -7,6 +7,7 @@ exports.registerValidation = void 0;
 const joi_1 = __importDefault(require("joi"));
 const Validations_1 = require("../Validations");
 const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessage"));
+const UniqueValues_1 = __importDefault(require("../../Constants/UniqueValues"));
 //* <---------------------------------------Register Validation------------------------------------------------->
 function registerValidation(req, res, next) {
     try {
@@ -15,7 +16,9 @@ function registerValidation(req, res, next) {
             firstName: joi_1.default.string().required(),
             lastName: joi_1.default.string().required(),
             email: joi_1.default.string().email().required(),
-            role: joi_1.default.string().hex().length(24).required(),
+            role: joi_1.default.string()
+                .required()
+                .valid(UniqueValues_1.default.ADMIN, UniqueValues_1.default.SUPER_ADMIN, UniqueValues_1.default.CLIENT, UniqueValues_1.default.DIETITIAN),
             password: joi_1.default.string().required().regex(passwordRegex).messages({
                 "string.pattern.base": ResponseMessage_1.default.INVALID_PASSWORD,
             }),

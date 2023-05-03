@@ -16,7 +16,7 @@ export const RegisterController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  const { phoneNumber, email } = req.body;
+  const { phoneNumber, email, username } = req.body;
 
   //*checking if email already exists
   const isEmailExist: IUser[] = await isUserEmailAlreadyExistService(email);
@@ -25,6 +25,8 @@ export const RegisterController = async (
   const isNumberExist: IUser[] = await isUserNumberAlreadyExistService(
     phoneNumber
   );
+
+  const isUsername = await checkUsernameService(username);
 
   //* return error if email is available
   if (isEmailExist.length > 0) {
@@ -39,6 +41,12 @@ export const RegisterController = async (
     return errorResponse(res, {
       statusCode: StatusCodes.FORBIDDEN,
       message: ResponseMessage.NUMBER_ALREADY_EXIST,
+      errors: {},
+    });
+  } else if (isUsername.length > 0) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.FORBIDDEN,
+      message: ResponseMessage.USERNAME_ALREADY_EXISTS,
       errors: {},
     });
   }

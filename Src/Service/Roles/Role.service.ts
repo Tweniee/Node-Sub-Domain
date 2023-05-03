@@ -13,7 +13,17 @@ export const createRoleService = async (name: string) => {
 
 // * find the role on the base of role name
 export const searchRoleByRoleName = async (name: string) => {
-  const role = await RoleModel.find({ name: { $eq: name } });
+  const role = await RoleModel.aggregate([
+    {
+      $match: { name: { $eq: name } },
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1,
+      },
+    },
+  ]);
   return role;
 };
 
@@ -33,10 +43,16 @@ export const updateRoleService = async (roleId: string, name: string) => {
 
 // * find the role on the base of roleId
 export const getRoleByRoleId = async (roleId: string) => {
-  const role = RoleModel.aggregate([
+  const role = await RoleModel.aggregate([
     {
       $match: {
         _id: { $eq: new Types.ObjectId(roleId) },
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1,
       },
     },
   ]);

@@ -6,6 +6,7 @@ import {
 } from "../../Dependencies";
 import { validatorErrorMessage } from "../Validations";
 import ResponseMessage from "../../Constants/ResponseMessage";
+import UniqueValues from "../../Constants/UniqueValues";
 
 //* <---------------------------------------Register Validation------------------------------------------------->
 
@@ -21,7 +22,14 @@ export function registerValidation(
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
       email: Joi.string().email().required(),
-      role: Joi.string().hex().length(24).required(),
+      role: Joi.string()
+        .required()
+        .valid(
+          UniqueValues.ADMIN,
+          UniqueValues.SUPER_ADMIN,
+          UniqueValues.CLIENT,
+          UniqueValues.DIETITIAN
+        ),
       password: Joi.string().required().regex(passwordRegex).messages({
         "string.pattern.base": ResponseMessage.INVALID_PASSWORD,
       }),

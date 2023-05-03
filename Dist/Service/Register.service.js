@@ -12,14 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkUsernameService = exports.registerService = void 0;
 const passwordMiddleware_1 = require("../Middleware/Password/passwordMiddleware");
 const Index_1 = require("../Model/Index");
+const Role_service_1 = require("./Roles/Role.service");
 const registerService = (req) => __awaiter(void 0, void 0, void 0, function* () {
     //* Extract user data from request body
-    const { firstName, lastName, email, username, password, dateOfBirth, phoneNumber, } = req.body;
+    const { firstName, lastName, email, username, role, password, dateOfBirth, phoneNumber, } = req.body;
+    const roleId = yield (0, Role_service_1.searchRoleByRoleName)(role);
     const user = yield Index_1.UserModel.create({
         firstName,
         lastName,
         username,
         email,
+        role: roleId[0]._id,
         password: yield (0, passwordMiddleware_1.hashPassword)(password),
         dateOfBirth,
         phoneNumber,
