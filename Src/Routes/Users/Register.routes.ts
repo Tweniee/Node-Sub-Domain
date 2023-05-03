@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { expressRouter } from "../../Dependencies";
 import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
 import {
   RegisterController,
@@ -7,7 +7,7 @@ import {
 import { registerValidation } from "../../Validations/Users/Register.validator";
 import { checkUsernameValidation } from "../../Validations/Users/CheckUsername.validator";
 
-const router = Router();
+const router = expressRouter();
 
 //* <------------------------------------for Login User------------------------------------------------->
 router.post("/", registerValidation, asyncMiddleware(RegisterController));

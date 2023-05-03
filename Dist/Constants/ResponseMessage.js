@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
+    // * SUCCESS
+    SUCCESS: "Success",
     //* Validations
     INVALID_PARAMS: "Invalid parameter",
     USERNAME_ALREADY_EXISTS: "Username already taken",
@@ -15,5 +17,10 @@ exports.default = {
     TOKEN_ERROR: "Token error",
     INVALID_TOKEN: "Invalid token",
     TOKEN_MALFORMATTED: "Token malformatted",
-    USER_VERIFIED: "Successfully Verified User."
+    USER_VERIFIED: "Successfully Verified User.",
+    // *role
+    ROLE_CREATED: "Role Created SuccessFully",
+    ROLE_UPDATED: "Role Updated SuccessFully",
+    ROLE_ALREADY_PRESENT: "Role Already Present",
+    ROLE_NOT_PRESENT: "Role Not Present",
 };

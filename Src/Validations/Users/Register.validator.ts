@@ -21,6 +21,7 @@ export function registerValidation(
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
       email: Joi.string().email().required(),
+      role: Joi.string().hex().length(24).required(),
       password: Joi.string().required().regex(passwordRegex).messages({
         "string.pattern.base": ResponseMessage.INVALID_PASSWORD,
       }),

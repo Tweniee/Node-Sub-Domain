@@ -15,6 +15,7 @@ function registerValidation(req, res, next) {
             firstName: joi_1.default.string().required(),
             lastName: joi_1.default.string().required(),
             email: joi_1.default.string().email().required(),
+            role: joi_1.default.string().hex().length(24).required(),
             password: joi_1.default.string().required().regex(passwordRegex).messages({
                 "string.pattern.base": ResponseMessage_1.default.INVALID_PASSWORD,
             }),

@@ -1,4 +1,5 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, Schema, model, Types } from "mongoose";
+import { commonOptions } from "../Constants/commonOptions";
 
 export interface IUser extends Document {
   firstName: string;
@@ -7,9 +8,12 @@ export interface IUser extends Document {
   password: string;
   dateOfBirth: Date;
   phoneNumber: string;
+  role: typeof Types.ObjectId;
   username: string;
   createdAt: Date;
   updatedAt: Date;
+  isActive?: boolean;
+  isDeleted?: boolean;
 }
 
 const userSchema = new Schema<IUser>(
@@ -25,6 +29,10 @@ const userSchema = new Schema<IUser>(
     username: {
       type: String,
       unique: true,
+      required: true,
+    },
+    role: {
+      type: Types.ObjectId,
       required: true,
     },
     email: {
@@ -44,12 +52,14 @@ const userSchema = new Schema<IUser>(
     dateOfBirth: {
       type: Date,
       required: true,
-    },
+    }
   },
   {
     timestamps: true,
     versionKey: false,
   }
 );
+
+userSchema.add(commonOptions)
 
 export default model<IUser>("users", userSchema);
