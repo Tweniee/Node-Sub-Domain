@@ -23,4 +23,10 @@ exports.default = {
     ROLE_UPDATED: "Role Updated SuccessFully",
     ROLE_ALREADY_PRESENT: "Role Already Present",
     ROLE_NOT_PRESENT: "Role Not Present",
+    // *Service
+    SERVICE_CREATED_SUCCESSFULLY: "Service Created Successfully",
+    SERVICE_ALREADY_EXISTS: "Service Already Exist with the same name",
+    SEARCHED_RESULT: "Search Result",
+    SERVICE_UPDATED_SUCCESSFULLY: "Service Updated Successfully",
+    SERVICE_NOT_FOUND: "Service Not Found",
 };

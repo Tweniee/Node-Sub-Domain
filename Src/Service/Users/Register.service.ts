@@ -1,7 +1,7 @@
-import { expressRequest, expressResponse } from "../Dependencies/index";
-import { hashPassword } from "../Middleware/Password/passwordMiddleware";
-import { UserModel } from "../Model/Index";
-import { searchRoleByRoleName } from "./Roles/Role.service";
+import { expressRequest, expressResponse } from "../../Dependencies/index";
+import { hashPassword } from "../../Middleware/Password/passwordMiddleware";
+import { UserModel } from "../../Model/Index";
+import { searchRoleByRoleName } from "../Roles/Role.service";
 
 export const registerService = async (req: expressRequest): Promise<any> => {
   //* Extract user data from request body

@@ -16,8 +16,8 @@ exports.checkUsernameController = exports.RegisterController = void 0;
 const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessage"));
 const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
 const Response_helper_1 = require("../../Helper/Response.helper");
-const Register_service_1 = require("../../Service/Register.service");
-const User_service_1 = require("../../Service/User.service");
+const Register_service_1 = require("../../Service/Users/Register.service");
+const User_service_1 = require("../../Service/Users/User.service");
 const RegisterController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { phoneNumber, email, username } = req.body;
     //*checking if email already exists

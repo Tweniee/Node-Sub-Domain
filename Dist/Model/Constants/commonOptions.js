@@ -9,5 +9,5 @@ exports.commonOptions = {
     isDeleted: {
         type: Boolean,
         default: false
-    }
+    },
 };

@@ -4,9 +4,11 @@ import { errorResponse } from "../../Helper/Response.helper";
 import StatusCodes from "../../Constants/StatusCodes";
 import ResponseMessage from "../../Constants/ResponseMessage";
 import { JWT_KEY } from "../../Config";
+import { Types } from "mongoose";
 
 interface TokenPayload {
   userId: string;
+  roleId: typeof Types.ObjectId;
 }
 
 declare global {
@@ -17,8 +19,11 @@ declare global {
   }
 }
 
-export const createJWTMiddleware = (userId: string): string => {
-  const payload: TokenPayload = { userId };
+export const createJWTMiddleware = (
+  userId: string,
+  roleId: typeof Types.ObjectId
+): string => {
+  const payload: TokenPayload = { userId, roleId };
   const secret = JWT_KEY;
 
   return jwt.sign(payload, secret);

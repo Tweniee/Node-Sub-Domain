@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkUsernameService = exports.registerService = void 0;
-const passwordMiddleware_1 = require("../Middleware/Password/passwordMiddleware");
-const Index_1 = require("../Model/Index");
-const Role_service_1 = require("./Roles/Role.service");
+const passwordMiddleware_1 = require("../../Middleware/Password/passwordMiddleware");
+const Index_1 = require("../../Model/Index");
+const Role_service_1 = require("../Roles/Role.service");
 const registerService = (req) => __awaiter(void 0, void 0, void 0, function* () {
     //* Extract user data from request body
     const { firstName, lastName, email, username, role, password, dateOfBirth, phoneNumber, } = req.body;

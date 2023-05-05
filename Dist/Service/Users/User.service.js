@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isUserNumberAlreadyExistService = exports.isUserEmailAlreadyExistService = void 0;
-const Index_1 = require("../Model/Index");
+const Index_1 = require("../../Model/Index");
 const isUserEmailAlreadyExistService = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield Index_1.UserModel.aggregate([
         {

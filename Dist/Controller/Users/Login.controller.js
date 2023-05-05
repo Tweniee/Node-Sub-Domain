@@ -18,7 +18,7 @@ const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
 const Response_helper_1 = require("../../Helper/Response.helper");
 const authMiddleware_1 = require("../../Middleware/Auth/authMiddleware");
 const passwordMiddleware_1 = require("../../Middleware/Password/passwordMiddleware");
-const User_service_1 = require("../../Service/User.service");
+const User_service_1 = require("../../Service/Users/User.service");
 const loginController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     //*checking if email already exists
@@ -44,7 +44,7 @@ const loginController = (req, res) => __awaiter(void 0, void 0, void 0, function
     //*success
     return (0, Response_helper_1.successResponse)(res, {
         message: ResponseMessage_1.default.USER_VERIFIED,
-        data: { token: (0, authMiddleware_1.createJWTMiddleware)(isEmailExist[0]._id) },
+        data: { token: (0, authMiddleware_1.createJWTMiddleware)(isEmailExist[0]._id, isEmailExist[0].role) },
     });
 });
 exports.loginController = loginController;

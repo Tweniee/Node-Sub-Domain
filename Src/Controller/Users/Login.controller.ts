@@ -5,7 +5,7 @@ import { errorResponse, successResponse } from "../../Helper/Response.helper";
 import { createJWTMiddleware } from "../../Middleware/Auth/authMiddleware";
 import { comparePassword } from "../../Middleware/Password/passwordMiddleware";
 import { IUser } from "../../Model/Users/UserSIgnup.Model";
-import { isUserEmailAlreadyExistService } from "../../Service/User.service";
+import { isUserEmailAlreadyExistService } from "../../Service/Users/User.service";
 
 export const loginController = async (
   req: expressRequest,
@@ -43,6 +43,6 @@ export const loginController = async (
   //*success
   return successResponse(res, {
     message: ResponseMessage.USER_VERIFIED,
-    data: { token: createJWTMiddleware(isEmailExist[0]._id) },
+    data: { token: createJWTMiddleware(isEmailExist[0]._id,isEmailExist[0].role) },
   });
 };

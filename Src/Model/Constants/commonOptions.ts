@@ -6,5 +6,5 @@ export const commonOptions = {
     isDeleted: {
       type: Boolean,
       default: false
-    }
+    },
   };

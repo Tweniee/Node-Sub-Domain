@@ -6,9 +6,9 @@ const AsyncMiddleware_1 = require("../../Middleware/AsyncMiddleware");
 const Role_Validator_1 = require("../../Validations/Roles/Role.Validator");
 const router = (0, Dependencies_1.expressRouter)();
 //* <--------------------Create Role Route --------------------------->
-router.post("/create", Role_Validator_1.checkCreateRoleValidation, (0, AsyncMiddleware_1.asyncMiddleware)(Role_Controller_1.createRoleController));
+router.post("/create", [Role_Validator_1.checkCreateRoleValidation], (0, AsyncMiddleware_1.asyncMiddleware)(Role_Controller_1.createRoleController));
 // * <-------------------Update Role Route---------------------------->
-router.patch("/update", Role_Validator_1.checkUpdateRoleValidation, (0, AsyncMiddleware_1.asyncMiddleware)(Role_Controller_1.updateRoleController));
+router.patch("/update", [Role_Validator_1.checkUpdateRoleValidation], (0, AsyncMiddleware_1.asyncMiddleware)(Role_Controller_1.updateRoleController));
 // * <-------------------Delete Role Route---------------------------->
 router.delete("/delete", (0, AsyncMiddleware_1.asyncMiddleware)(Role_Controller_1.deleteRoleController));
 // * <-------------------Get All Role Route--------------------------->

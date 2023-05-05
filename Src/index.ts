@@ -1,5 +1,5 @@
 import express from "express";
-import { mainLayout } from "./mainLayout/mainLayout";
+import { mainLayout } from "./MainLayout/mainLayout";
 import "./Utils/db";
 import { MAIN_PORT } from "./Config";
 const app = express();

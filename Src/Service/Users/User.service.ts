@@ -1,5 +1,5 @@
-import { UserModel } from "../Model/Index";
-import { IUser } from "../Model/Users/UserSIgnup.Model";
+import { UserModel } from "../../Model/Index";
+import { IUser } from "../../Model/Users/UserSIgnup.Model";
 
 export const isUserEmailAlreadyExistService = async (
   email: string

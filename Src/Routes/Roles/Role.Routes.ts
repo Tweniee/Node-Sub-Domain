@@ -7,6 +7,7 @@ import {
 } from "../../Controller/Roles/Role.Controller";
 import { expressRouter } from "../../Dependencies";
 import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
+import {} from "../../Middleware/Auth/authMiddleware";
 import {
   checkCreateRoleValidation,
   checkUpdateRoleValidation,
@@ -17,14 +18,14 @@ const router = expressRouter();
 //* <--------------------Create Role Route --------------------------->
 router.post(
   "/create",
-  checkCreateRoleValidation,
+  [checkCreateRoleValidation],
   asyncMiddleware(createRoleController)
 );
 
 // * <-------------------Update Role Route---------------------------->
 router.patch(
   "/update",
-  checkUpdateRoleValidation,
+  [checkUpdateRoleValidation],
   asyncMiddleware(updateRoleController)
 );
 

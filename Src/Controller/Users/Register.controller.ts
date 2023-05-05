@@ -6,11 +6,11 @@ import { IUser } from "../../Model/Users/UserSIgnup.Model";
 import {
   checkUsernameService,
   registerService,
-} from "../../Service/Register.service";
+} from "../../Service/Users/Register.service";
 import {
   isUserEmailAlreadyExistService,
   isUserNumberAlreadyExistService,
-} from "../../Service/User.service";
+} from "../../Service/Users/User.service";
 
 export const RegisterController = async (
   req: expressRequest,
