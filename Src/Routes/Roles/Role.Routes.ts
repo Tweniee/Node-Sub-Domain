@@ -8,24 +8,26 @@ import {
 import { expressRouter } from "../../Dependencies";
 import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
 import {} from "../../Middleware/Auth/authMiddleware";
+import { authorize } from "../../Middleware/RBAC/RBAC.Middleware";
 import {
   checkCreateRoleValidation,
   checkUpdateRoleValidation,
 } from "../../Validations/Roles/Role.Validator";
+import uniqueValue from "../../Constants/UniqueValues";
 
 const router = expressRouter();
 
 //* <--------------------Create Role Route --------------------------->
 router.post(
   "/create",
-  [checkCreateRoleValidation],
+  [checkCreateRoleValidation, authorize([uniqueValue.SUPER_ADMIN])],
   asyncMiddleware(createRoleController)
 );
 
 // * <-------------------Update Role Route---------------------------->
 router.patch(
   "/update",
-  [checkUpdateRoleValidation],
+  [checkUpdateRoleValidation, authorize([uniqueValue.SUPER_ADMIN])],
   asyncMiddleware(updateRoleController)
 );
 

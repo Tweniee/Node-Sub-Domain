@@ -4,6 +4,7 @@ import {
   loginRoute,
   RoleRoute,
   ServiceRoute,
+  UserRoute,
 } from "../Routes/Index";
 import { apiLimiterMiddleware } from "../Middleware/RequestLimiter";
 import { apiLoggerMiddleware } from "../Middleware/API_Logger/API_logger.middleware";
@@ -20,4 +21,5 @@ export const mainLayout = (app: Application) => {
   app.use("/userRegister", RegisterRoute);
   app.use("/role", jwtAuthMiddleware, RoleRoute);
   app.use("/service", jwtAuthMiddleware, ServiceRoute);
+  app.use("/users", jwtAuthMiddleware, UserRoute);
 };

@@ -7,25 +7,26 @@ import {
 } from "../../Controller/Services/Service.Controller";
 import { expressRouter } from "../../Dependencies";
 import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
+import { authorize } from "../../Middleware/RBAC/RBAC.Middleware";
 import { checkCreateRoleValidation } from "../../Validations/Roles/Role.Validator";
 import {
   checkCreateServiceValidation,
   checkUpdateServiceValidation,
 } from "../../Validations/Services/Service.validators";
+import uniqueValue from "../../Constants/UniqueValues";
 
 const router = expressRouter();
-
 // * <----------------------Create Service----------------------->
 router.post(
   "/create",
-  checkCreateServiceValidation,
+  [checkCreateServiceValidation, authorize([uniqueValue.SUPER_ADMIN])],
   asyncMiddleware(createServiceController)
 );
 
 // * <----------------------Update Service----------------------->
 router.patch(
   "/update",
-  checkUpdateServiceValidation,
+  [checkUpdateServiceValidation,authorize([uniqueValue.SUPER_ADMIN])],
   asyncMiddleware(updateServiceController)
 );
 

@@ -32,5 +32,8 @@ export default {
     SEARCHED_RESULT:"Search Result",
     SERVICE_UPDATED_SUCCESSFULLY:"Service Updated Successfully",
     SERVICE_NOT_FOUND:"Service Not Found",
+
+    // *users
+    NO_USER_FOUND:"No User Found."
     
 }

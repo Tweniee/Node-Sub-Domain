@@ -15,6 +15,7 @@ declare global {
   namespace Express {
     interface Request {
       userId?: string;
+      roleId?: string;
     }
   }
 }
@@ -73,10 +74,10 @@ export const jwtAuthMiddleware = (
       });
     }
 
-    const { userId } = decoded as TokenPayload;
+    const { userId, roleId } = decoded as TokenPayload;
 
     req.userId = userId;
-
+    req.roleId = roleId.toString();
     return next();
   });
 };

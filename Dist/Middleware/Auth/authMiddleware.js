@@ -48,8 +48,9 @@ const jwtAuthMiddleware = (req, res, next) => {
                 errors: {},
             });
         }
-        const { userId } = decoded;
+        const { userId, roleId } = decoded;
         req.userId = userId;
+        req.roleId = roleId.toString();
         return next();
     });
 };
