@@ -45,5 +45,8 @@ export default {
     NO_PROPERTY_FOUND:"No Dashboard Property Available with this Id.",
     PROPERTY_UPDATED:"Property Updated Successfully.",
 
+    // *Permissions
+    PERMISSION_UPDATED:"Permission Updated Successfully",
+
     
 }

@@ -4,7 +4,7 @@ import {
   getAllDashboardPropertyController,
   getSingleProperty_And_PermissionsService,
   updateDashboardPropertyController,
-} from "../../Controller/Dashboard/Dashboard.controller";
+} from "../../Controller/Dashboard/Dashboard.Controller";
 import { expressRouter } from "../../Dependencies";
 import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
 import { authorize } from "../../Middleware/RBAC/RBAC.Middleware";

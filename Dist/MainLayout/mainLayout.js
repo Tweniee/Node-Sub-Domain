@@ -19,6 +19,7 @@ const mainLayout = (app) => {
     app.use("/service", authMiddleware_1.jwtAuthMiddleware, Index_1.ServiceRoute);
     app.use("/users", authMiddleware_1.jwtAuthMiddleware, Index_1.UserRoute);
     app.use("/dashboard", authMiddleware_1.jwtAuthMiddleware, Index_1.DashBoardRoute);
+    app.use("/permission", Index_1.PermissionRoute);
     // Handle invalid route on server
     app.use("*", RouteGuard_1.invalidRouteHandlerMiddleware);
 };
