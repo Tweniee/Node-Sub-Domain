@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createDashboard_Property_Permission_Service = exports.createDashboardPropertyService = void 0;
+exports.getAllDashboardPropertiesService = exports.getPropertyByPropertyIdService = exports.updateDashBoardPropertyService = exports.createDashboard_Property_Permission_Service = exports.createDashboardPropertyService = void 0;
+const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
 const Dashboard_Model_1 = __importDefault(require("../../Model/Dashboard/Dashboard.Model"));
 const createDashboardPropertyService = (name, role) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,3 +29,107 @@ const createDashboard_Property_Permission_Service = () => __awaiter(void 0, void
     return permission;
 });
 exports.createDashboard_Property_Permission_Service = createDashboard_Property_Permission_Service;
+const updateDashBoardPropertyService = (name, role, propertyId) => __awaiter(void 0, void 0, void 0, function* () {
+    const updatedProperty = yield Dashboard_Model_1.default.findOneAndUpdate({ _id: { $eq: new mongoose_1.Types.ObjectId(propertyId) } }, { $set: { name, role } }, { new: true });
+    return updatedProperty;
+});
+exports.updateDashBoardPropertyService = updateDashBoardPropertyService;
+const getPropertyByPropertyIdService = (propertyId) => __awaiter(void 0, void 0, void 0, function* () {
+    const property = yield Dashboard_Model_1.default.aggregate([
+        {
+            $match: {
+                _id: new mongoose_1.Types.ObjectId(propertyId),
+                isActive: true,
+                isDeleted: false,
+            },
+        },
+        {
+            $lookup: {
+                from: "permissions",
+                localField: "permissionId",
+                foreignField: "_id",
+                as: "permissionId",
+                pipeline: [
+                    {
+                        $match: {
+                            isActive: true,
+                            isDeleted: false,
+                        },
+                    },
+                    {
+                        $project: {
+                            isActive: 0,
+                            isDeleted: 0,
+                            createdAt: 0,
+                            updatedAt: 0,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $unwind: {
+                path: "$permissionId",
+            },
+        },
+        {
+            $project: {
+                isActive: 0,
+                isDeleted: 0,
+                createdAt: 0,
+                updatedAt: 0,
+            },
+        },
+    ]);
+    return property;
+});
+exports.getPropertyByPropertyIdService = getPropertyByPropertyIdService;
+const getAllDashboardPropertiesService = () => __awaiter(void 0, void 0, void 0, function* () {
+    const property = yield Dashboard_Model_1.default.aggregate([
+        {
+            $match: {
+                isActive: true,
+                isDeleted: false,
+            },
+        },
+        {
+            $lookup: {
+                from: "permissions",
+                localField: "permissionId",
+                foreignField: "_id",
+                as: "permissionId",
+                pipeline: [
+                    {
+                        $match: {
+                            isActive: true,
+                            isDeleted: false,
+                        },
+                    },
+                    {
+                        $project: {
+                            isActive: 0,
+                            isDeleted: 0,
+                            createdAt: 0,
+                            updatedAt: 0,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $unwind: {
+                path: "$permissionId",
+            },
+        },
+        {
+            $project: {
+                isActive: 0,
+                isDeleted: 0,
+                createdAt: 0,
+                updatedAt: 0,
+            },
+        },
+    ]);
+    return property;
+});
+exports.getAllDashboardPropertiesService = getAllDashboardPropertiesService;

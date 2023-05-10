@@ -15,10 +15,34 @@ export function checkDashboardPropertyValidation(
   next: expressNextFunction
 ): expressResponse<any, Record<string, any>> | undefined {
   try {
+    // *valid(Types.ObjectId.toString()* //
     const schema = Joi.object({
-      role: Joi.array()
-        .items(Joi.string().valid(Types.ObjectId.toString()))
-        .required(),
+      role: Joi.array().items(Joi.string().hex().length(24)).required(),
+      name: Joi.string().required(),
+    });
+
+    const isValid: any = schema.validate(req.body);
+    if (isValid.error) {
+      return validatorErrorMessage(isValid, res);
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+}
+
+//* <---------------------------------------Check Dashboard Property Update------------------------------------------------->
+
+export function checkUpdate_DashboardPropertyValidation(
+  req: expressRequest,
+  res: expressResponse,
+  next: expressNextFunction
+): expressResponse<any, Record<string, any>> | undefined {
+  try {
+    // *valid(Types.ObjectId.toString()* //
+    const schema = Joi.object({
+      propertyId: Joi.string().hex().length(24).required(),
+      role: Joi.array().items(Joi.string().hex().length(24)).required(),
       name: Joi.string().required(),
     });
 

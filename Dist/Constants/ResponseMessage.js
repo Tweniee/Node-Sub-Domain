@@ -18,6 +18,8 @@ exports.default = {
     INVALID_TOKEN: "Invalid token",
     TOKEN_MALFORMATTED: "Token malformatted",
     USER_VERIFIED: "Successfully Verified User.",
+    // * Invalid Route
+    INVALID_ROUTE: "The Route you care accessing is not valid",
     // *role
     ROLE_CREATED: "Role Created SuccessFully",
     ROLE_UPDATED: "Role Updated SuccessFully",
@@ -33,4 +35,6 @@ exports.default = {
     NO_USER_FOUND: "No User Found.",
     // *Dashboard
     DASHBOARD_PROPERTY_CREATED: "Dashboard property created Successfully.",
+    NO_PROPERTY_FOUND: "No Dashboard Property Available with this Id.",
+    PROPERTY_UPDATED: "Property Updated Successfully.",
 };
