@@ -3,18 +3,18 @@ import { commonOptions } from "../Constants/commonOptions";
 import { IPermission } from "./Permissions/Permissions.Model";
 
 export interface IDashboard extends Document {
-  role: typeof Types.ObjectId;
+  role: (typeof Types.ObjectId)[];
   name: string;
-  permissions: IPermission;
+  permissionId: typeof Types.ObjectId;
   isActive?: boolean;
   isDeleted?: boolean;
 }
 
 const dashboardSchema = new Schema<IDashboard>(
   {
-    role: { type: Types.ObjectId, ref: "Role", required: true },
+    role: [{ type: Types.ObjectId, ref: "Role", required: true }],
     name: { type: String, required: true },
-    permissions: {
+    permissionId: {
       type: Schema.Types.ObjectId,
       ref: "Permission",
       required: true,

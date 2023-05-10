@@ -17,5 +17,6 @@ const mainLayout = (app) => {
     app.use("/role", authMiddleware_1.jwtAuthMiddleware, Index_1.RoleRoute);
     app.use("/service", authMiddleware_1.jwtAuthMiddleware, Index_1.ServiceRoute);
     app.use("/users", authMiddleware_1.jwtAuthMiddleware, Index_1.UserRoute);
+    app.use("/dashboard", Index_1.DashBoardRoute);
 };
 exports.mainLayout = mainLayout;

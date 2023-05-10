@@ -30,5 +30,7 @@ exports.default = {
     SERVICE_UPDATED_SUCCESSFULLY: "Service Updated Successfully",
     SERVICE_NOT_FOUND: "Service Not Found",
     // *users
-    NO_USER_FOUND: "No User Found."
+    NO_USER_FOUND: "No User Found.",
+    // *Dashboard
+    DASHBOARD_PROPERTY_CREATED: "Dashboard property created Successfully.",
 };
