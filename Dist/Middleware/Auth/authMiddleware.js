@@ -9,8 +9,8 @@ const Response_helper_1 = require("../../Helper/Response.helper");
 const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
 const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessage"));
 const Config_1 = require("../../Config");
-const createJWTMiddleware = (userId, roleId) => {
-    const payload = { userId, roleId };
+const createJWTMiddleware = (userId) => {
+    const payload = { userId };
     const secret = Config_1.JWT_KEY;
     return jsonwebtoken_1.default.sign(payload, secret);
 };
@@ -48,9 +48,8 @@ const jwtAuthMiddleware = (req, res, next) => {
                 errors: {},
             });
         }
-        const { userId, roleId } = decoded;
+        const { userId } = decoded;
         req.userId = userId;
-        req.roleId = roleId.toString();
         return next();
     });
 };

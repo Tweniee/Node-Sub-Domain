@@ -93,5 +93,26 @@ export const getSingleUserService = async (userId: Types.ObjectId) => {
       },
     },
   ]);
-  return user
+  return user;
+};
+
+export const getUserById_Without_Lookup_Service = (userId: Types.ObjectId) => {
+  const user = UserModel.aggregate([
+    {
+      $match: {
+        _id: new Types.ObjectId(userId),
+      },
+    },
+    {
+      $project: {
+        role: 1,
+        email: 1,
+        username: 1,
+        lastName: 1,
+        firstName: 1,
+        dateOfBirth: 1,
+      },
+    },
+  ]);
+  return user;
 };

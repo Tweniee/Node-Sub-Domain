@@ -6,25 +6,22 @@ import ResponseMessage from "../../Constants/ResponseMessage";
 import { JWT_KEY } from "../../Config";
 import { Types } from "mongoose";
 
-interface TokenPayload {
+export interface TokenPayload {
   userId: string;
-  roleId: typeof Types.ObjectId;
 }
 
 declare global {
   namespace Express {
-    interface Request {
+    export interface Request {
       userId?: string;
-      roleId?: string;
     }
   }
 }
 
 export const createJWTMiddleware = (
-  userId: string,
-  roleId: typeof Types.ObjectId
+  userId: string
 ): string => {
-  const payload: TokenPayload = { userId, roleId };
+  const payload: TokenPayload = { userId };
   const secret = JWT_KEY;
 
   return jwt.sign(payload, secret);
@@ -74,10 +71,9 @@ export const jwtAuthMiddleware = (
       });
     }
 
-    const { userId, roleId } = decoded as TokenPayload;
+    const { userId } = decoded as TokenPayload;
 
     req.userId = userId;
-    req.roleId = roleId.toString();
     return next();
   });
 };

@@ -44,7 +44,7 @@ const loginController = (req, res) => __awaiter(void 0, void 0, void 0, function
     //*success
     return (0, Response_helper_1.successResponse)(res, {
         message: ResponseMessage_1.default.USER_VERIFIED,
-        data: { token: (0, authMiddleware_1.createJWTMiddleware)(isEmailExist[0]._id, isEmailExist[0].role) },
+        data: { token: (0, authMiddleware_1.createJWTMiddleware)(isEmailExist[0]._id) },
     });
 });
 exports.loginController = loginController;

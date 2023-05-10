@@ -43,6 +43,6 @@ export const loginController = async (
   //*success
   return successResponse(res, {
     message: ResponseMessage.USER_VERIFIED,
-    data: { token: createJWTMiddleware(isEmailExist[0]._id,isEmailExist[0].role) },
+    data: { token: createJWTMiddleware(isEmailExist[0]._id) },
   });
 };

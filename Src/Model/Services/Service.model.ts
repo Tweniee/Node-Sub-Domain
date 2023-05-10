@@ -22,6 +22,6 @@ const ServiceSchema = new mongoose.Schema<IService>(
 ServiceSchema.add(commonOptions);
 
 // Create a model for the Service schema
-const Service = mongoose.model<IService>("Service", ServiceSchema);
+export default mongoose.model<IService>("Service", ServiceSchema);
 
-export default Service;
+

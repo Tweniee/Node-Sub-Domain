@@ -12,5 +12,4 @@ const ServiceSchema = new mongoose_1.default.Schema({
 }, { timestamps: true, versionKey: false });
 ServiceSchema.add(commonOptions_1.commonOptions);
 // Create a model for the Service schema
-const Service = mongoose_1.default.model("Service", ServiceSchema);
-exports.default = Service;
+exports.default = mongoose_1.default.model("Service", ServiceSchema);

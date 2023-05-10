@@ -10,19 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authorize = void 0;
-const Role_service_1 = require("../../Service/Roles/Role.service");
+const mongoose_1 = require("mongoose");
+const Users_Service_1 = require("../../Service/Users/Users.Service");
 function isAuthorized(userRole, allowedRoles) {
     return allowedRoles.includes(userRole);
 }
 function authorize(allowedRoles) {
     return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-        const { roleId } = req;
-        if (roleId) {
-            const userRole = yield (0, Role_service_1.getRoleByRoleId)(roleId);
-            console.log(userRole);
-            if (isAuthorized(userRole[0].name, allowedRoles)) {
-                next(); // The user is authorized, continue with the next middleware function
-            }
+        const { userId } = req;
+        const user = yield (0, Users_Service_1.getSingleUserService)(new mongoose_1.Types.ObjectId(userId));
+        const role = user[0].role;
+        const userRole = role;
+        console.log(userRole);
+        if (isAuthorized(userRole[0].name, allowedRoles)) {
+            next(); // The user is authorized, continue with the next middleware function
         }
         else {
             res.status(403).send("Forbidden"); // The user is not authorized, send a 403 Forbidden response

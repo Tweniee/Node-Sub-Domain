@@ -1,7 +1,7 @@
 import { Document, model, Schema } from "mongoose";
 import { commonOptions } from "../Constants/commonOptions";
 
-interface IRole extends Document {
+export interface IRole extends Document {
   name: string;
   isActive?: boolean;
   isDeleted?: boolean;
