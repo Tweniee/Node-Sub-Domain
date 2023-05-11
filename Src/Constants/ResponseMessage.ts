@@ -47,6 +47,10 @@ export default {
 
     // *Permissions
     PERMISSION_UPDATED:"Permission Updated Successfully",
+    INVALID_ACTION:"You don't have permission to perform this action",
+
+    // *Template Content
+    CONTENT_CREATED_SUCCESSFULLY:"Content Created Successfully",
 
     
 }

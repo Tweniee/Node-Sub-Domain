@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { PermissionModel } from "../../Model/Index";
 import DashboardModel from "../../Model/Dashboard/Dashboard.Model";
+import IPermissionDashboard from "../../Interface/PermissionDashboard.interface";
 
 export const createDashboardPropertyService = async (
   name: string,
@@ -133,4 +134,59 @@ export const getAllDashboardPropertiesService = async () => {
     },
   ]);
   return property;
+};
+
+export const getAllPermissionService = async (
+  role: Types.ObjectId
+): Promise<IPermissionDashboard | null> => {
+  const permission = await DashboardModel.aggregate([
+    {
+      $match: {
+        role: {
+          $in: [new Types.ObjectId(role)],
+        },
+        isActive: true,
+        isDeleted: false,
+      },
+    },
+    {
+      $lookup: {
+        from: "permissions",
+        localField: "permissionId",
+        foreignField: "_id",
+        as: "permissionId",
+        pipeline: [
+          {
+            $match: {
+              isActive: true,
+              isDeleted: false,
+            },
+          },
+          {
+            $project: {
+              isActive: 0,
+              isDeleted: 0,
+              createdAt: 0,
+              updatedAt: 0,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $unwind: {
+        path: "$permissionId",
+      },
+    },
+    {
+      $project: {
+        isActive: 0,
+        isDeleted: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        role: 0,
+      },
+    },
+  ]);
+  return permission[0];
 };

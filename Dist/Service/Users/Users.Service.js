@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserById_Without_Lookup_Service = exports.getSingleUserService = exports.getAllUserService = void 0;
+exports.getTheRoleByUserIdService = exports.getUserById_Without_Lookup_Service = exports.getSingleUserService = exports.getAllUserService = void 0;
 const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
 const getAllUserService = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -128,3 +128,21 @@ const getUserById_Without_Lookup_Service = (userId) => {
     return user;
 };
 exports.getUserById_Without_Lookup_Service = getUserById_Without_Lookup_Service;
+const getTheRoleByUserIdService = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const roles = yield Index_1.UserModel.aggregate([
+        {
+            $match: {
+                _id: new mongoose_1.Types.ObjectId(userId),
+                isActive: true,
+                isDeleted: false,
+            },
+        },
+        {
+            $project: {
+                role: 1,
+            },
+        },
+    ]);
+    return roles[0];
+});
+exports.getTheRoleByUserIdService = getTheRoleByUserIdService;

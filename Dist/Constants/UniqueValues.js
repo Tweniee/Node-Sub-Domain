@@ -6,4 +6,9 @@ exports.default = {
     ADMIN: "Site Admin",
     CLIENT: "Client",
     DIETITIAN: "Dietitian",
+    // * Permissions
+    CREATE_PERMISSION: "Create",
+    UPDATE_PERMISSION: "Update",
+    READ_PERMISSION: "Read",
+    DELETE_PERMISSION: "Delete",
 };

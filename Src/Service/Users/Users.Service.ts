@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import { UserModel } from "../../Model/Index";
+import IUserRole from "../../Interface/userRole.Interface";
 
 export const getAllUserService = async () => {
   const users = await UserModel.aggregate([
@@ -115,4 +116,25 @@ export const getUserById_Without_Lookup_Service = (userId: Types.ObjectId) => {
     },
   ]);
   return user;
+};
+
+export const getTheRoleByUserIdService = async (
+  userId: Types.ObjectId
+): Promise<IUserRole | null> => {
+  const roles = await UserModel.aggregate([
+    {
+      $match: {
+        _id: new Types.ObjectId(userId),
+        isActive: true,
+        isDeleted: false,
+      },
+    },
+    {
+      $project: {
+        role: 1,
+      },
+    },
+  ]);
+
+  return roles[0];
 };

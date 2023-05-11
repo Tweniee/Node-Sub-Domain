@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllDashboardPropertiesService = exports.getPropertyByPropertyIdService = exports.updateDashBoardPropertyService = exports.createDashboard_Property_Permission_Service = exports.createDashboardPropertyService = void 0;
+exports.getAllPermissionService = exports.getAllDashboardPropertiesService = exports.getPropertyByPropertyIdService = exports.updateDashBoardPropertyService = exports.createDashboard_Property_Permission_Service = exports.createDashboardPropertyService = void 0;
 const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
 const Dashboard_Model_1 = __importDefault(require("../../Model/Dashboard/Dashboard.Model"));
@@ -133,3 +133,56 @@ const getAllDashboardPropertiesService = () => __awaiter(void 0, void 0, void 0,
     return property;
 });
 exports.getAllDashboardPropertiesService = getAllDashboardPropertiesService;
+const getAllPermissionService = (role) => __awaiter(void 0, void 0, void 0, function* () {
+    const permission = yield Dashboard_Model_1.default.aggregate([
+        {
+            $match: {
+                role: {
+                    $in: [new mongoose_1.Types.ObjectId(role)],
+                },
+                isActive: true,
+                isDeleted: false,
+            },
+        },
+        {
+            $lookup: {
+                from: "permissions",
+                localField: "permissionId",
+                foreignField: "_id",
+                as: "permissionId",
+                pipeline: [
+                    {
+                        $match: {
+                            isActive: true,
+                            isDeleted: false,
+                        },
+                    },
+                    {
+                        $project: {
+                            isActive: 0,
+                            isDeleted: 0,
+                            createdAt: 0,
+                            updatedAt: 0,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $unwind: {
+                path: "$permissionId",
+            },
+        },
+        {
+            $project: {
+                isActive: 0,
+                isDeleted: 0,
+                createdAt: 0,
+                updatedAt: 0,
+                role: 0,
+            },
+        },
+    ]);
+    return permission[0];
+});
+exports.getAllPermissionService = getAllPermissionService;
