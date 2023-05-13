@@ -13,7 +13,16 @@ const templateContentInfoSchema = new mongoose_1.Schema({
         type: mongoose_1.Types.ObjectId,
         ref: "templateContent",
         required: false,
+        default: null,
     },
+    children: [
+        {
+            type: mongoose_1.Types.ObjectId,
+            ref: "templateContent",
+            required: false,
+            default: null,
+        },
+    ],
     dietitian: {
         type: mongoose_1.Types.ObjectId,
         ref: "users",

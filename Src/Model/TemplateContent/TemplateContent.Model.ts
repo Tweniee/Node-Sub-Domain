@@ -5,6 +5,7 @@ import { commonOptions } from "../Constants/commonOptions";
 interface ITemplateContentInfo extends Document {
   tabName: typeof Types.ObjectId;
   parentTab: typeof Types.ObjectId;
+  children: (typeof Types.ObjectId)[];
   dietitian: typeof Types.ObjectId;
   title: string;
   subTitle: string;
@@ -25,7 +26,16 @@ const templateContentInfoSchema = new Schema<ITemplateContentInfo>(
       type: Types.ObjectId,
       ref: "templateContent",
       required: false,
+      default: null,
     },
+    children: [
+      {
+        type: Types.ObjectId,
+        ref: "templateContent",
+        required: false,
+        default: null,
+      },
+    ],
     dietitian: {
       type: Types.ObjectId,
       ref: "users",

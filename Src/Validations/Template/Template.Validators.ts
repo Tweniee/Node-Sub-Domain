@@ -31,3 +31,28 @@ export function checkCreateTemplateContentValidation(
     next(error);
   }
 }
+
+//* <---------------------------------------Check Template Content Update------------------------------------------------->
+
+export function checkUpdateTemplateContentValidation(
+  req: expressRequest,
+  res: expressResponse,
+  next: expressNextFunction
+): expressResponse<any, Record<string, any>> | undefined {
+  try {
+    const schema = Joi.object({
+      contentId: Joi.string().hex().length(24).required(),
+      title: Joi.string().required(),
+      description: Joi.string().required(),
+      subTitle: Joi.string().optional(),
+    });
+
+    const isValid: any = schema.validate(req.body);
+    if (isValid.error) {
+      return validatorErrorMessage(isValid, res);
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+}

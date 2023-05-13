@@ -51,6 +51,8 @@ export default {
 
     // *Template Content
     CONTENT_CREATED_SUCCESSFULLY:"Content Created Successfully",
-
-    
+    TEMPLATE_CONTENT_NOT_FOUND:"Template content not found",
+    UPDATED_SUCCESSFULLY:"Updated Successfully.",
+    DELETED_SUCCESSFULLY:"Deleted Successfully.",
+    RESTORED_SUCCESSFULLY:"Restored Successfully.",
 }
