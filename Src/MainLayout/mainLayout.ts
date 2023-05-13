@@ -7,7 +7,8 @@ import {
   UserRoute,
   DashBoardRoute,
   PermissionRoute,
-  TemplateRoute
+  TemplateRoute,
+  DietitianServiceRoute,
 } from "../Routes/Index";
 import { apiLimiterMiddleware } from "../Middleware/RequestLimiter";
 import { apiLoggerMiddleware } from "../Middleware/API_Logger/API_logger.middleware";
@@ -27,11 +28,9 @@ export const mainLayout = (app: Application) => {
   app.use("/service", jwtAuthMiddleware, ServiceRoute);
   app.use("/users", jwtAuthMiddleware, UserRoute);
   app.use("/dashboard", jwtAuthMiddleware, DashBoardRoute);
-  app.use("/permission",jwtAuthMiddleware,PermissionRoute);
-  app.use("/templateContent",jwtAuthMiddleware,TemplateRoute)
+  app.use("/permission", jwtAuthMiddleware, PermissionRoute);
+  app.use("/templateContent", jwtAuthMiddleware, TemplateRoute);
+  app.use("/dietitianService", jwtAuthMiddleware, DietitianServiceRoute);
   // Handle invalid route on server
   app.use("*", invalidRouteHandlerMiddleware);
 };
-
-
-

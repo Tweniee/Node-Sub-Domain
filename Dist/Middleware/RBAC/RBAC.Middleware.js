@@ -8,10 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authorize = void 0;
 const mongoose_1 = require("mongoose");
 const Users_Service_1 = require("../../Service/Users/Users.Service");
+const Response_helper_1 = require("../../Helper/Response.helper");
+const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
+const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessage"));
 function isAuthorized(userRole, allowedRoles) {
     return allowedRoles.includes(userRole);
 }
@@ -21,12 +27,15 @@ function authorize(allowedRoles) {
         const user = yield (0, Users_Service_1.getSingleUserService)(new mongoose_1.Types.ObjectId(userId));
         const role = user[0].role;
         const userRole = role;
-        console.log(userRole);
-        if (isAuthorized(userRole[0].name, allowedRoles)) {
+        if (isAuthorized(userRole, allowedRoles)) {
             next(); // The user is authorized, continue with the next middleware function
         }
         else {
-            res.status(403).send("Forbidden"); // The user is not authorized, send a 403 Forbidden response
+            (0, Response_helper_1.errorResponse)(res, {
+                statusCode: StatusCodes_1.default.FORBIDDEN,
+                message: ResponseMessage_1.default.INVALID_ROLE,
+                errors: ResponseMessage_1.default.FORBIDDEN,
+            }); // The user is not authorized, send a 403 Forbidden response
         }
     });
 }

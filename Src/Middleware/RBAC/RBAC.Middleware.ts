@@ -5,6 +5,9 @@ import {
   expressRequest,
 } from "../../Dependencies";
 import { getSingleUserService } from "../../Service/Users/Users.Service";
+import { errorResponse } from "../../Helper/Response.helper";
+import StatusCodes from "../../Constants/StatusCodes";
+import ResponseMessage from "../../Constants/ResponseMessage";
 
 type Role = "Super Admin" | "Site Admin" | "Client" | "Dietitian";
 
@@ -22,11 +25,14 @@ export function authorize(allowedRoles: string[]) {
     const user = await getSingleUserService(new Types.ObjectId(userId));
     const role = user[0].role;
     const userRole: any = role;
-    console.log(userRole);
-    if (isAuthorized(userRole[0].name, allowedRoles)) {
+    if (isAuthorized(userRole, allowedRoles)) {
       next(); // The user is authorized, continue with the next middleware function
     } else {
-      res.status(403).send("Forbidden"); // The user is not authorized, send a 403 Forbidden response
+      errorResponse(res, {
+        statusCode: StatusCodes.FORBIDDEN,
+        message: ResponseMessage.INVALID_ROLE,
+        errors: ResponseMessage.FORBIDDEN,
+      }); // The user is not authorized, send a 403 Forbidden response
     }
   };
 }

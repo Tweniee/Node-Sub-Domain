@@ -5,6 +5,9 @@ exports.default = {
     SUCCESS: "Success",
     //* Validations
     INVALID_PARAMS: "Invalid parameter",
+    // *Auth
+    INVALID_ROLE: "The Role is Forbidden",
+    FORBIDDEN: "Forbidden",
     USERNAME_ALREADY_EXISTS: "Username already taken",
     USERNAME_AVAILABLE: "Username available",
     EMAIL_DOES_NOT_EXIST: "Email Does Not Exists.",
@@ -46,4 +49,10 @@ exports.default = {
     UPDATED_SUCCESSFULLY: "Updated Successfully.",
     DELETED_SUCCESSFULLY: "Deleted Successfully.",
     RESTORED_SUCCESSFULLY: "Restored Successfully.",
+    // *Dietitian Service
+    DIETITIAN_SERVICE_CREATED: "Dietitian Service Created Successfully.",
+    DIETITIAN_DATA: "Requested Data",
+    DIETITIAN_SERVICE_UPDATED_SUCCESSFULLY: "Dietitian Service Updated Successfully",
+    INVALID_SERVICE_ID: "No Dietitian Service Found",
+    DIETITIAN_SERVICE_DELETED: "Dietitian Service Deleted Successfully",
 };
