@@ -66,4 +66,9 @@ export default {
     DIETITIAN_SERVICE_UPDATED_SUCCESSFULLY:"Dietitian Service Updated Successfully",
     INVALID_SERVICE_ID:"No Dietitian Service Found",
     DIETITIAN_SERVICE_DELETED:"Dietitian Service Deleted Successfully",
+
+    // *Client Service Request
+    CLIENT_REQUEST_CREATED_SUCCESSFULLY:"Request Sent to the Dietitian,Thanks",
+    SERVICE_DELETED:"Client Service deleted Successfully",
+    CANNOT_DELETE_NOW:"This service is under progress, you cannot delete it now",
 }

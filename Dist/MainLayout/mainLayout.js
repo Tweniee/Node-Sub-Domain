@@ -22,6 +22,7 @@ const mainLayout = (app) => {
     app.use("/permission", authMiddleware_1.jwtAuthMiddleware, Index_1.PermissionRoute);
     app.use("/templateContent", authMiddleware_1.jwtAuthMiddleware, Index_1.TemplateRoute);
     app.use("/dietitianService", authMiddleware_1.jwtAuthMiddleware, Index_1.DietitianServiceRoute);
+    app.use("/clientEnquiry", authMiddleware_1.jwtAuthMiddleware, Index_1.ClientRoute);
     // Handle invalid route on server
     app.use("*", RouteGuard_1.invalidRouteHandlerMiddleware);
 };

@@ -26,4 +26,10 @@ exports.default = {
     SMALL_FRIDAY: "friday",
     SMALL_SATURDAY: "saturday",
     SMALL_SUNDAY: "sunday",
+    // *Client Service Status
+    CLIENT_SERVICE_SERVICE_ENUM: ["Active", "In-progress", "Completed", "Rejected"],
+    ACTIVE: "Active",
+    IN_PROGRESS: "In-progress",
+    COMPLETED: "Completed",
+    REJECTED: "Rejected",
 };
