@@ -18,9 +18,11 @@ export const createTemplateContentController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.body;
   // *getting this userId from token
   const userId = new Types.ObjectId(req?.userId);
   const hasPermission = await checkForPermissionService(
+    tabName,
     userId,
     UniqueValues.CREATE_PERMISSION
   );
@@ -32,7 +34,7 @@ export const createTemplateContentController = async (
     });
   }
   // * creating Template Content
-  const { tabName, parentTab = null, title, subTitle, description } = req.body;
+  const { parentTab = null, title, subTitle, description } = req.body;
   const content = await createTemplateContentService(
     {
       tabName,
@@ -54,9 +56,11 @@ export const getAllTemplateContentController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.query;
   // *getting this userId from token
   const userId = new Types.ObjectId(req?.userId);
   const hasPermission = await checkForPermissionService(
+    String(tabName),
     userId,
     UniqueValues.READ_PERMISSION
   );
@@ -78,6 +82,21 @@ export const updateTemplateContentController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.body;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
+    tabName,
+    userId,
+    UniqueValues.UPDATE_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
   const { contentId, title, subTitle = null, description } = req.body;
   const content = await getContentByContentIDService(contentId);
   if (content.length == 0) {
@@ -102,6 +121,21 @@ export const deleteTemplateContentController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.query;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
+    String(tabName),
+    userId,
+    UniqueValues.DELETE_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
   const { contentId } = req.params;
   const content = await getContentByContentIDService(
     new Types.ObjectId(contentId)
@@ -126,6 +160,21 @@ export const restoreTemplateContentController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.query;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
+    String(tabName),
+    userId,
+    UniqueValues.DELETE_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
   const { contentId } = req.params;
   const content = await getContentByContentIDService(
     new Types.ObjectId(contentId)

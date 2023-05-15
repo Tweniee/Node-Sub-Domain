@@ -4,7 +4,9 @@ import {
   expressRequest,
   expressResponse,
 } from "../../Dependencies";
-import { validatorErrorMessage } from "../Validations";
+import {
+  validatorErrorMessage,
+} from "../Validations";
 
 //* <---------------------------------------Check Template Content Create------------------------------------------------->
 
@@ -41,6 +43,7 @@ export function checkUpdateTemplateContentValidation(
 ): expressResponse<any, Record<string, any>> | undefined {
   try {
     const schema = Joi.object({
+      tabName: Joi.string().hex().length(24).required(),
       contentId: Joi.string().hex().length(24).required(),
       title: Joi.string().required(),
       description: Joi.string().required(),

@@ -21,9 +21,10 @@ const UniqueValues_1 = __importDefault(require("../../Constants/UniqueValues"));
 const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
 const Permissions_Helper_1 = require("../../Helper/Permissions/Permissions.Helper");
 const createTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.body;
     // *getting this userId from token
     const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
-    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(userId, UniqueValues_1.default.CREATE_PERMISSION);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(tabName, userId, UniqueValues_1.default.CREATE_PERMISSION);
     if (!hasPermission) {
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.UNAUTHORIZED,
@@ -32,7 +33,7 @@ const createTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
         });
     }
     // * creating Template Content
-    const { tabName, parentTab = null, title, subTitle, description } = req.body;
+    const { parentTab = null, title, subTitle, description } = req.body;
     const content = yield (0, Template_Service_1.createTemplateContentService)({
         tabName,
         dietitian: userId,
@@ -48,9 +49,10 @@ const createTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
 });
 exports.createTemplateContentController = createTemplateContentController;
 const getAllTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.query;
     // *getting this userId from token
     const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
-    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(userId, UniqueValues_1.default.READ_PERMISSION);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(String(tabName), userId, UniqueValues_1.default.READ_PERMISSION);
     if (!hasPermission) {
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.UNAUTHORIZED,
@@ -66,6 +68,17 @@ const getAllTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
 });
 exports.getAllTemplateContentController = getAllTemplateContentController;
 const updateTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.body;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(tabName, userId, UniqueValues_1.default.UPDATE_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
     const { contentId, title, subTitle = null, description } = req.body;
     const content = yield (0, Template_Service_1.getContentByContentIDService)(contentId);
     if (content.length == 0) {
@@ -83,6 +96,17 @@ const updateTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
 });
 exports.updateTemplateContentController = updateTemplateContentController;
 const deleteTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.query;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(String(tabName), userId, UniqueValues_1.default.DELETE_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
     const { contentId } = req.params;
     const content = yield (0, Template_Service_1.getContentByContentIDService)(new mongoose_1.Types.ObjectId(contentId));
     if (content.length == 0) {
@@ -100,6 +124,17 @@ const deleteTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
 });
 exports.deleteTemplateContentController = deleteTemplateContentController;
 const restoreTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.query;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(String(tabName), userId, UniqueValues_1.default.DELETE_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
     const { contentId } = req.params;
     const content = yield (0, Template_Service_1.getContentByContentIDService)(new mongoose_1.Types.ObjectId(contentId));
     if (content.length == 0) {

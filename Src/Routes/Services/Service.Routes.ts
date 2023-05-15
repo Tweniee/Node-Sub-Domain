@@ -26,7 +26,7 @@ router.post(
 // * <----------------------Update Service----------------------->
 router.patch(
   "/update",
-  [checkUpdateServiceValidation,authorize([uniqueValue.SUPER_ADMIN])],
+  [checkUpdateServiceValidation, authorize([uniqueValue.SUPER_ADMIN])],
   asyncMiddleware(updateServiceController)
 );
 

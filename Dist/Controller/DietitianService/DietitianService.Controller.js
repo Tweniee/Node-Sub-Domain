@@ -18,8 +18,21 @@ const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessa
 const Response_helper_1 = require("../../Helper/Response.helper");
 const DieitianService_Service_1 = require("../../Service/DietitianService/DieitianService.Service");
 const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
+const Permissions_Helper_1 = require("../../Helper/Permissions/Permissions.Helper");
+const UniqueValues_1 = __importDefault(require("../../Constants/UniqueValues"));
 const createDietitianServiceController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { tabName, serviceName, description, price, durationInMinutes, availableDays, } = req.body;
+    const { tabName } = req.body;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(tabName, userId, UniqueValues_1.default.CREATE_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
+    const { serviceName, description, price, durationInMinutes, availableDays } = req.body;
     const dietitian = new mongoose_1.Types.ObjectId(req.userId);
     const dietitianService = yield (0, DieitianService_Service_1.createDietitianService_Service)({
         serviceName,
@@ -37,6 +50,17 @@ const createDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
 });
 exports.createDietitianServiceController = createDietitianServiceController;
 const getSingleDietitianServiceController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.query;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(String(tabName), userId, UniqueValues_1.default.READ_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
     const { serviceId = null } = req.params;
     if (!serviceId) {
         return (0, Response_helper_1.errorResponse)(res, {
@@ -53,6 +77,17 @@ const getSingleDietitianServiceController = (req, res) => __awaiter(void 0, void
 });
 exports.getSingleDietitianServiceController = getSingleDietitianServiceController;
 const updateDietitianServiceController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.body;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(tabName, userId, UniqueValues_1.default.UPDATE_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
     const { serviceId = null, description, price, durationInMinutes, availableDays, } = req.body;
     if (!serviceId) {
         return (0, Response_helper_1.errorResponse)(res, {
@@ -83,6 +118,17 @@ const updateDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
 });
 exports.updateDietitianServiceController = updateDietitianServiceController;
 const deleteDietitianServiceController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.query;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(String(tabName), userId, UniqueValues_1.default.CREATE_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
     const { serviceId = null } = req.params;
     if (!serviceId) {
         return (0, Response_helper_1.errorResponse)(res, {
@@ -107,6 +153,17 @@ const deleteDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
 });
 exports.deleteDietitianServiceController = deleteDietitianServiceController;
 const getAllDietitianServiceController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tabName } = req.query;
+    // *getting this userId from token
+    const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(String(tabName), userId, UniqueValues_1.default.READ_PERMISSION);
+    if (!hasPermission) {
+        return (0, Response_helper_1.errorResponse)(res, {
+            statusCode: StatusCodes_1.default.UNAUTHORIZED,
+            message: ResponseMessage_1.default.INVALID_ACTION,
+            errors: {},
+        });
+    }
     const dietitian = req.userId;
     const dietitianService = yield (0, DieitianService_Service_1.getAllDietitianService_Service)(dietitian);
     return (0, Response_helper_1.successResponse)(res, {

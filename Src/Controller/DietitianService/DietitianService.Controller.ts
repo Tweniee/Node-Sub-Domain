@@ -11,19 +11,30 @@ import {
   getSingleDietitianServiceMainService,
 } from "../../Service/DietitianService/DieitianService.Service";
 import StatusCodes from "../../Constants/StatusCodes";
+import { checkForPermissionService } from "../../Helper/Permissions/Permissions.Helper";
+import UniqueValues from "../../Constants/UniqueValues";
 
 export const createDietitianServiceController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  const {
+  const { tabName } = req.body;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
     tabName,
-    serviceName,
-    description,
-    price,
-    durationInMinutes,
-    availableDays,
-  } = req.body;
+    userId,
+    UniqueValues.CREATE_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
+  const { serviceName, description, price, durationInMinutes, availableDays } =
+    req.body;
   const dietitian = new Types.ObjectId(req.userId);
   const dietitianService = await createDietitianService_Service({
     serviceName,
@@ -44,6 +55,21 @@ export const getSingleDietitianServiceController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.query;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
+    String(tabName),
+    userId,
+    UniqueValues.READ_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
   const { serviceId = null } = req.params;
   if (!serviceId) {
     return errorResponse(res, {
@@ -64,6 +90,21 @@ export const updateDietitianServiceController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.body;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
+    tabName,
+    userId,
+    UniqueValues.UPDATE_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
   const {
     serviceId = null,
     description,
@@ -105,6 +146,21 @@ export const deleteDietitianServiceController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.query;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
+    String(tabName),
+    userId,
+    UniqueValues.CREATE_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
   const { serviceId = null } = req.params;
   if (!serviceId) {
     return errorResponse(res, {
@@ -135,6 +191,21 @@ export const getAllDietitianServiceController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
+  const { tabName } = req.query;
+  // *getting this userId from token
+  const userId = new Types.ObjectId(req?.userId);
+  const hasPermission = await checkForPermissionService(
+    String(tabName),
+    userId,
+    UniqueValues.READ_PERMISSION
+  );
+  if (!hasPermission) {
+    return errorResponse(res, {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      message: ResponseMessage.INVALID_ACTION,
+      errors: {},
+    });
+  }
   const dietitian = req.userId;
   const dietitianService = await getAllDietitianService_Service(dietitian);
   return successResponse(res, {

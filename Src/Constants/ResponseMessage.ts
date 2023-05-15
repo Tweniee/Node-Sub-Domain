@@ -3,7 +3,7 @@ export default {
     SUCCESS:"Success",
     //* Validations
     INVALID_PARAMS:"Invalid parameter",
-
+    INVALID_QUERY_PARAMS:"Invalid Query parameter",
     // *Auth
     INVALID_ROLE:"The Role is Forbidden",
     FORBIDDEN:"Forbidden",

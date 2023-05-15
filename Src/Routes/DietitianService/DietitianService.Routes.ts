@@ -11,6 +11,7 @@ import {
   checkDietitianServiceValidation,
   checkUpdateDietitianServiceValidation,
 } from "../../Validations/DietitianService/DietitianService.validators";
+import { checkTabNameValidation } from "../../Validations/Permissions/Permissions.Validators";
 
 const router = expressRouter();
 
@@ -24,6 +25,7 @@ router.post(
 //  * <------------------------Get Single Dietitian Service Route-------------------------------->
 router.get(
   "/getSingle/:serviceId",
+  checkTabNameValidation,
   asyncMiddleware(getSingleDietitianServiceController)
 );
 
@@ -37,10 +39,11 @@ router.patch(
 // *<----------------------------Delete Dietitian Service Route---------------------------------->
 router.delete(
   "/delete/:serviceId",
+  checkTabNameValidation,
   asyncMiddleware(deleteDietitianServiceController)
 );
 
 // *<--------------------------Get All Dietitian Services Route---------------------------------->
-router.get("/getAll", asyncMiddleware(getAllDietitianServiceController));
+router.get("/getAll",checkTabNameValidation, asyncMiddleware(getAllDietitianServiceController));
 
 export default router;

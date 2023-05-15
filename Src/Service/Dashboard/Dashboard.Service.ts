@@ -137,11 +137,13 @@ export const getAllDashboardPropertiesService = async () => {
 };
 
 export const getAllPermissionService = async (
-  role: Types.ObjectId
+  role: Types.ObjectId,
+  tab: string
 ): Promise<IPermissionDashboard | null> => {
   const permission = await DashboardModel.aggregate([
     {
       $match: {
+        _id: { $eq: new Types.ObjectId(tab) },
         role: {
           $in: [new Types.ObjectId(role)],
         },

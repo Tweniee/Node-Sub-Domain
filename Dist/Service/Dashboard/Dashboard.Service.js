@@ -133,10 +133,11 @@ const getAllDashboardPropertiesService = () => __awaiter(void 0, void 0, void 0,
     return property;
 });
 exports.getAllDashboardPropertiesService = getAllDashboardPropertiesService;
-const getAllPermissionService = (role) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllPermissionService = (role, tab) => __awaiter(void 0, void 0, void 0, function* () {
     const permission = yield Dashboard_Model_1.default.aggregate([
         {
             $match: {
+                _id: { $eq: new mongoose_1.Types.ObjectId(tab) },
                 role: {
                     $in: [new mongoose_1.Types.ObjectId(role)],
                 },

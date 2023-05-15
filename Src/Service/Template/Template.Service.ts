@@ -1,9 +1,5 @@
 import { Types } from "mongoose";
 import { TemplateContentModel } from "../../Model/Index";
-import { getTheRoleByUserIdService } from "../Users/Users.Service";
-import { getAllPermissionService } from "../Dashboard/Dashboard.Service";
-import UniqueValues from "../../Constants/UniqueValues";
-
 interface IContentBodyInfo {
   tabName: Types.ObjectId;
   parentTab?: Types.ObjectId;

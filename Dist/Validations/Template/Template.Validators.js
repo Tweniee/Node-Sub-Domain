@@ -31,6 +31,7 @@ exports.checkCreateTemplateContentValidation = checkCreateTemplateContentValidat
 function checkUpdateTemplateContentValidation(req, res, next) {
     try {
         const schema = joi_1.default.object({
+            tabName: joi_1.default.string().hex().length(24).required(),
             contentId: joi_1.default.string().hex().length(24).required(),
             title: joi_1.default.string().required(),
             description: joi_1.default.string().required(),

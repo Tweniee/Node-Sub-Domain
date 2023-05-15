@@ -16,11 +16,11 @@ exports.checkForPermissionService = void 0;
 const Dashboard_Service_1 = require("../../Service/Dashboard/Dashboard.Service");
 const Users_Service_1 = require("../../Service/Users/Users.Service");
 const UniqueValues_1 = __importDefault(require("../../Constants/UniqueValues"));
-const checkForPermissionService = (userId, permission) => __awaiter(void 0, void 0, void 0, function* () {
+const checkForPermissionService = (tab, userId, permission) => __awaiter(void 0, void 0, void 0, function* () {
     // *Getting Role from userId
     const { role } = yield (0, Users_Service_1.getTheRoleByUserIdService)(userId);
     // *Checking the roleId is has the permission for the operation
-    const { permissionId } = yield (0, Dashboard_Service_1.getAllPermissionService)(role);
+    const { permissionId } = yield (0, Dashboard_Service_1.getAllPermissionService)(role, tab);
     if (permission == UniqueValues_1.default.CREATE_PERMISSION) {
         return permissionId.canCreate;
     }

@@ -35,6 +35,7 @@ exports.checkDietitianServiceValidation = checkDietitianServiceValidation;
 function checkUpdateDietitianServiceValidation(req, res, next) {
     try {
         const schema = joi_1.default.object({
+            tabName: joi_1.default.string().hex().length(24).required(),
             serviceId: joi_1.default.string().hex().length(24).required(),
             description: joi_1.default.string().required(),
             price: joi_1.default.number().positive().required(),
