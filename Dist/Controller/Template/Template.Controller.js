@@ -19,10 +19,11 @@ const Response_helper_1 = require("../../Helper/Response.helper");
 const Template_Service_1 = require("../../Service/Template/Template.Service");
 const UniqueValues_1 = __importDefault(require("../../Constants/UniqueValues"));
 const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
+const Permissions_Helper_1 = require("../../Helper/Permissions/Permissions.Helper");
 const createTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // *getting this userId from token
     const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
-    const hasPermission = yield (0, Template_Service_1.checkForPermissionService)(userId, UniqueValues_1.default.CREATE_PERMISSION);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(userId, UniqueValues_1.default.CREATE_PERMISSION);
     if (!hasPermission) {
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.UNAUTHORIZED,
@@ -49,7 +50,7 @@ exports.createTemplateContentController = createTemplateContentController;
 const getAllTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // *getting this userId from token
     const userId = new mongoose_1.Types.ObjectId(req === null || req === void 0 ? void 0 : req.userId);
-    const hasPermission = yield (0, Template_Service_1.checkForPermissionService)(userId, UniqueValues_1.default.READ_PERMISSION);
+    const hasPermission = yield (0, Permissions_Helper_1.checkForPermissionService)(userId, UniqueValues_1.default.READ_PERMISSION);
     if (!hasPermission) {
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.UNAUTHORIZED,

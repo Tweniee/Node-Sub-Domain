@@ -3,7 +3,6 @@ import ResponseMessage from "../../Constants/ResponseMessage";
 import { expressRequest, expressResponse } from "../../Dependencies";
 import { errorResponse, successResponse } from "../../Helper/Response.helper";
 import {
-  checkForPermissionService,
   createTemplateContentService,
   deleteTemplateContentService,
   getAllTemplateContentService,
@@ -13,6 +12,7 @@ import {
 } from "../../Service/Template/Template.Service";
 import UniqueValues from "../../Constants/UniqueValues";
 import StatusCodes from "../../Constants/StatusCodes";
+import { checkForPermissionService } from "../../Helper/Permissions/Permissions.Helper";
 
 export const createTemplateContentController = async (
   req: expressRequest,

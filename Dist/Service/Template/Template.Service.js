@@ -8,16 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.restoreTemplateContentService = exports.deleteTemplateContentService = exports.updateTemplateContentService = exports.getContentByContentIDService = exports.getAllTemplateContentService = exports.checkForPermissionService = exports.updateParentService = exports.createTemplateContentService = void 0;
+exports.restoreTemplateContentService = exports.deleteTemplateContentService = exports.updateTemplateContentService = exports.getContentByContentIDService = exports.getAllTemplateContentService = exports.updateParentService = exports.createTemplateContentService = void 0;
 const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
-const Users_Service_1 = require("../Users/Users.Service");
-const Dashboard_Service_1 = require("../Dashboard/Dashboard.Service");
-const UniqueValues_1 = __importDefault(require("../../Constants/UniqueValues"));
 const createTemplateContentService = (body, parentId) => __awaiter(void 0, void 0, void 0, function* () {
     const content = yield Index_1.TemplateContentModel.create(body);
     yield (0, exports.updateParentService)(parentId, content._id);
@@ -31,28 +25,6 @@ const updateParentService = (parentId, _id) => __awaiter(void 0, void 0, void 0,
     return updatedParent;
 });
 exports.updateParentService = updateParentService;
-const checkForPermissionService = (userId, permission) => __awaiter(void 0, void 0, void 0, function* () {
-    // *Getting Role from userId
-    const { role } = yield (0, Users_Service_1.getTheRoleByUserIdService)(userId);
-    // *Checking the roleId is has the permission for the operation
-    const { permissionId } = yield (0, Dashboard_Service_1.getAllPermissionService)(role);
-    if (permission == UniqueValues_1.default.CREATE_PERMISSION) {
-        return permissionId.canCreate;
-    }
-    else if (permission == UniqueValues_1.default.READ_PERMISSION) {
-        return permissionId.canRead;
-    }
-    else if (permission == UniqueValues_1.default.UPDATE_PERMISSION) {
-        return permissionId.canUpdate;
-    }
-    else if (permission == UniqueValues_1.default.DELETE_PERMISSION) {
-        return permissionId.canDelete;
-    }
-    else {
-        return false;
-    }
-});
-exports.checkForPermissionService = checkForPermissionService;
 const getAllTemplateContentService = () => __awaiter(void 0, void 0, void 0, function* () {
     const content = yield Index_1.TemplateContentModel.aggregate([
         {
