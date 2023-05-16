@@ -60,4 +60,6 @@ exports.default = {
     CLIENT_REQUEST_CREATED_SUCCESSFULLY: "Request Sent to the Dietitian,Thanks",
     SERVICE_DELETED: "Client Service deleted Successfully",
     CANNOT_DELETE_NOW: "This service is under progress, you cannot delete it now",
+    // *Subscription Plan
+    CREATED_SUBSCRIPTION_PLAN: "Subscription plan created successfully",
 };

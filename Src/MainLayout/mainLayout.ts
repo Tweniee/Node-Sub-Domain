@@ -10,6 +10,7 @@ import {
   TemplateRoute,
   DietitianServiceRoute,
   ClientRoute,
+  SubscriptionPlanRoute,
 } from "../Routes/Index";
 import { apiLimiterMiddleware } from "../Middleware/RequestLimiter";
 import { apiLoggerMiddleware } from "../Middleware/API_Logger/API_logger.middleware";
@@ -32,7 +33,8 @@ export const mainLayout = (app: Application) => {
   app.use("/permission", jwtAuthMiddleware, PermissionRoute);
   app.use("/templateContent", jwtAuthMiddleware, TemplateRoute);
   app.use("/dietitianService", jwtAuthMiddleware, DietitianServiceRoute);
-  app.use("/clientEnquiry",jwtAuthMiddleware,ClientRoute)
+  app.use("/clientEnquiry", jwtAuthMiddleware, ClientRoute);
+  app.use("/subscriptionPlan", jwtAuthMiddleware, SubscriptionPlanRoute);
   // Handle invalid route on server
   app.use("*", invalidRouteHandlerMiddleware);
 };

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ClientServiceStatusModel = exports.DietitianServiceModel = exports.ClientsModel = exports.TemplateContentModel = exports.PermissionModel = exports.RoleModel = exports.ServiceModel = exports.UserModel = void 0;
+exports.ClientServiceStatusModel = exports.DietitianServiceModel = exports.ClientsModel = exports.SubscriptionModel = exports.TemplateContentModel = exports.PermissionModel = exports.RoleModel = exports.ServiceModel = exports.UserModel = void 0;
 const UserSIgnup_Model_1 = __importDefault(require("./Users/UserSIgnup.Model"));
 exports.UserModel = UserSIgnup_Model_1.default;
 const Service_model_1 = __importDefault(require("./Services/Service.model"));
@@ -20,3 +20,5 @@ const Clients_model_1 = __importDefault(require("./Clients/Clients.model"));
 exports.ClientsModel = Clients_model_1.default;
 const ClientServiceStatus_Model_1 = __importDefault(require("./Clients/ClientServiceStatus/ClientServiceStatus.Model"));
 exports.ClientServiceStatusModel = ClientServiceStatus_Model_1.default;
+const Subscription_Model_1 = __importDefault(require("./Subscriptions/Subscription.Model"));
+exports.SubscriptionModel = Subscription_Model_1.default;

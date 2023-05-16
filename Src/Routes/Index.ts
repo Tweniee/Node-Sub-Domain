@@ -8,7 +8,7 @@ import PermissionRoute from "./Dashboard/Permissions/Permission.Routes";
 import TemplateRoute from "./Templates/Template.Routes";
 import DietitianServiceRoute from "./DietitianService/DietitianService.Routes"
 import ClientRoute from "./Client/Client.Routes"
-
+import SubscriptionPlanRoute from "./Subscription/Subscription.Routes"
 export {
   RegisterRoute,
   UserRoute,
@@ -19,5 +19,6 @@ export {
   PermissionRoute,
   TemplateRoute,
   DietitianServiceRoute,
-  ClientRoute
+  ClientRoute,
+  SubscriptionPlanRoute
 };

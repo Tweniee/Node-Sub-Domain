@@ -11,7 +11,10 @@ export const checkForPermissionService = async (
   // *Getting Role from userId
   const { role } = await getTheRoleByUserIdService(userId);
   // *Checking the roleId is has the permission for the operation
-  const { permissionId } = await getAllPermissionService(role, tab);
+  const { permissionId = null } = await getAllPermissionService(role, tab);
+  if (!permissionId) {
+    return false;
+  }
   if (permission == UniqueValues.CREATE_PERMISSION) {
     return permissionId.canCreate;
   } else if (permission == UniqueValues.READ_PERMISSION) {

@@ -27,9 +27,20 @@ exports.default = {
     SMALL_SATURDAY: "saturday",
     SMALL_SUNDAY: "sunday",
     // *Client Service Status
-    CLIENT_SERVICE_SERVICE_ENUM: ["Active", "In-progress", "Completed", "Rejected"],
+    CLIENT_SERVICE_SERVICE_ENUM: [
+        "Active",
+        "In-progress",
+        "Completed",
+        "Rejected",
+    ],
     ACTIVE: "Active",
     IN_PROGRESS: "In-progress",
     COMPLETED: "Completed",
     REJECTED: "Rejected",
+    // * Subscription Plan
+    SUBSCRIPTION_LIMIT: "4",
+    ONE_MONTH: "ONE_MONTH",
+    THREE_MONTHS: "THREE_MONTHS",
+    SIX_MONTHS: "SIX_MONTHS",
+    ONE_YEAR: "ONE_YEAR",
 };

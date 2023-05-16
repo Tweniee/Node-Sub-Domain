@@ -20,7 +20,10 @@ const checkForPermissionService = (tab, userId, permission) => __awaiter(void 0,
     // *Getting Role from userId
     const { role } = yield (0, Users_Service_1.getTheRoleByUserIdService)(userId);
     // *Checking the roleId is has the permission for the operation
-    const { permissionId } = yield (0, Dashboard_Service_1.getAllPermissionService)(role, tab);
+    const { permissionId = null } = yield (0, Dashboard_Service_1.getAllPermissionService)(role, tab);
+    if (!permissionId) {
+        return false;
+    }
     if (permission == UniqueValues_1.default.CREATE_PERMISSION) {
         return permissionId.canCreate;
     }

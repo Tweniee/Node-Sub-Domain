@@ -24,8 +24,10 @@ function isAuthorized(userRole, allowedRoles) {
 function authorize(allowedRoles) {
     return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         const { userId } = req;
+        console.log(userId);
         const user = yield (0, Users_Service_1.getSingleUserService)(new mongoose_1.Types.ObjectId(userId));
         const role = user[0].role;
+        console.log(role);
         const userRole = role;
         if (isAuthorized(userRole, allowedRoles)) {
             next(); // The user is authorized, continue with the next middleware function
