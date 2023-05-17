@@ -47,7 +47,7 @@ SubscriptionPlanSchema.pre("save", function (next) {
         const count = yield model.countDocuments();
         const limit = Number(UniqueValues_1.default.SUBSCRIPTION_LIMIT);
         if (count >= limit) {
-            throw new Error("Document limit exceeded.");
+            throw new Error("Document limit exceeded. Only 4 Are Allowed");
         }
         next();
     });

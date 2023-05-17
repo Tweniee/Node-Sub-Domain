@@ -9,6 +9,7 @@ import {
   PermissionRoute,
   TemplateRoute,
   DietitianServiceRoute,
+  EnquiryRoute,
   ClientRoute,
   SubscriptionPlanRoute,
 } from "../Routes/Index";
@@ -35,6 +36,7 @@ export const mainLayout = (app: Application) => {
   app.use("/dietitianService", jwtAuthMiddleware, DietitianServiceRoute);
   app.use("/clientEnquiry", jwtAuthMiddleware, ClientRoute);
   app.use("/subscriptionPlan", jwtAuthMiddleware, SubscriptionPlanRoute);
+  app.use("/Enquiry",jwtAuthMiddleware,EnquiryRoute)
   // Handle invalid route on server
   app.use("*", invalidRouteHandlerMiddleware);
 };

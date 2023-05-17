@@ -51,7 +51,7 @@ SubscriptionPlanSchema.pre<ISubscriptionPlan>("save", async function (next) {
   const limit = Number(UniqueValues.SUBSCRIPTION_LIMIT);
 
   if (count >= limit) {
-    throw new Error("Document limit exceeded.");
+    throw new Error("Document limit exceeded. Only 4 Are Allowed");
   }
   next();
 });

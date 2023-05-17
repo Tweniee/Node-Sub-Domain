@@ -7,6 +7,8 @@ import DietitianServiceModel from "./DietitianService/DietitianService.Model";
 import ClientsModel from "./Clients/Clients.model";
 import ClientServiceStatusModel from "./Clients/ClientServiceStatus/ClientServiceStatus.Model";
 import SubscriptionModel from "./Subscriptions/Subscription.Model";
+import EnquiryModel from "./Enquiry/Enquiry.Model";
+import ReplyModel from "./Enquiry/Reply/Reply.Model";
 export {
   UserModel,
   ServiceModel,
@@ -17,4 +19,6 @@ export {
   ClientsModel,
   DietitianServiceModel,
   ClientServiceStatusModel,
+  EnquiryModel,
+  ReplyModel
 };

@@ -62,4 +62,6 @@ exports.default = {
     CANNOT_DELETE_NOW: "This service is under progress, you cannot delete it now",
     // *Subscription Plan
     CREATED_SUBSCRIPTION_PLAN: "Subscription plan created successfully",
+    // *Enquiry
+    ENQUIRY_CREATED_SUCCESSFULLY: "Enquiry Created Successfully",
 };

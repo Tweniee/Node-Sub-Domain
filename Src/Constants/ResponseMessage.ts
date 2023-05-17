@@ -74,5 +74,8 @@ export default {
 
     // *Subscription Plan
     CREATED_SUBSCRIPTION_PLAN:"Subscription plan created successfully",
+
+    // *Enquiry
+    ENQUIRY_CREATED_SUCCESSFULLY:"Enquiry Created Successfully",
     
 }

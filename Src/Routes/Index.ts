@@ -9,6 +9,7 @@ import TemplateRoute from "./Templates/Template.Routes";
 import DietitianServiceRoute from "./DietitianService/DietitianService.Routes"
 import ClientRoute from "./Client/Client.Routes"
 import SubscriptionPlanRoute from "./Subscription/Subscription.Routes"
+import EnquiryRoute from "./Enquiry/Enquiry.Routes"
 export {
   RegisterRoute,
   UserRoute,
@@ -20,5 +21,6 @@ export {
   TemplateRoute,
   DietitianServiceRoute,
   ClientRoute,
-  SubscriptionPlanRoute
+  SubscriptionPlanRoute,
+  EnquiryRoute
 };
