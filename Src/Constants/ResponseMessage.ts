@@ -77,5 +77,8 @@ export default {
 
     // *Enquiry
     ENQUIRY_CREATED_SUCCESSFULLY:"Enquiry Created Successfully",
+
+    // *Enquiry Reply
+    ENQUIRY_REPLY_SUCCESSFULLY:"Enquiry Reply Successfully",
     
 }

@@ -10,6 +10,7 @@ import DietitianServiceRoute from "./DietitianService/DietitianService.Routes"
 import ClientRoute from "./Client/Client.Routes"
 import SubscriptionPlanRoute from "./Subscription/Subscription.Routes"
 import EnquiryRoute from "./Enquiry/Enquiry.Routes"
+import ReplyRoute from "./Enquiry/Reply/Reply.Routes"
 export {
   RegisterRoute,
   UserRoute,
@@ -22,5 +23,6 @@ export {
   DietitianServiceRoute,
   ClientRoute,
   SubscriptionPlanRoute,
-  EnquiryRoute
+  EnquiryRoute,
+  ReplyRoute
 };

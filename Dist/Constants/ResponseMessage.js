@@ -64,4 +64,6 @@ exports.default = {
     CREATED_SUBSCRIPTION_PLAN: "Subscription plan created successfully",
     // *Enquiry
     ENQUIRY_CREATED_SUCCESSFULLY: "Enquiry Created Successfully",
+    // *Enquiry Reply
+    ENQUIRY_REPLY_SUCCESSFULLY: "Enquiry Reply Successfully",
 };

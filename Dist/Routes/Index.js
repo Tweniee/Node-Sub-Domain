@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EnquiryRoute = exports.SubscriptionPlanRoute = exports.ClientRoute = exports.DietitianServiceRoute = exports.TemplateRoute = exports.PermissionRoute = exports.DashBoardRoute = exports.ServiceRoute = exports.RoleRoute = exports.loginRoute = exports.UserRoute = exports.RegisterRoute = void 0;
+exports.ReplyRoute = exports.EnquiryRoute = exports.SubscriptionPlanRoute = exports.ClientRoute = exports.DietitianServiceRoute = exports.TemplateRoute = exports.PermissionRoute = exports.DashBoardRoute = exports.ServiceRoute = exports.RoleRoute = exports.loginRoute = exports.UserRoute = exports.RegisterRoute = void 0;
 const login_routes_1 = __importDefault(require("./Users/login.routes"));
 exports.loginRoute = login_routes_1.default;
 const Register_routes_1 = __importDefault(require("./Users/Register.routes"));
@@ -28,3 +28,5 @@ const Subscription_Routes_1 = __importDefault(require("./Subscription/Subscripti
 exports.SubscriptionPlanRoute = Subscription_Routes_1.default;
 const Enquiry_Routes_1 = __importDefault(require("./Enquiry/Enquiry.Routes"));
 exports.EnquiryRoute = Enquiry_Routes_1.default;
+const Reply_Routes_1 = __importDefault(require("./Enquiry/Reply/Reply.Routes"));
+exports.ReplyRoute = Reply_Routes_1.default;

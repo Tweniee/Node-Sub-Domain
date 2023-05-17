@@ -25,6 +25,7 @@ const mainLayout = (app) => {
     app.use("/clientEnquiry", authMiddleware_1.jwtAuthMiddleware, Index_1.ClientRoute);
     app.use("/subscriptionPlan", authMiddleware_1.jwtAuthMiddleware, Index_1.SubscriptionPlanRoute);
     app.use("/Enquiry", authMiddleware_1.jwtAuthMiddleware, Index_1.EnquiryRoute);
+    app.use("/EnquiryReply", authMiddleware_1.jwtAuthMiddleware, Index_1.ReplyRoute);
     // Handle invalid route on server
     app.use("*", RouteGuard_1.invalidRouteHandlerMiddleware);
 };
