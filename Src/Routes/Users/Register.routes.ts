@@ -6,11 +6,17 @@ import {
 } from "../../Controller/Users/Register.controller";
 import { registerValidation } from "../../Validations/Users/Register.validator";
 import { checkUsernameValidation } from "../../Validations/Users/CheckUsername.validator";
+import { apiLimiterMiddleware } from "../../Middleware/RequestLimiter";
 
 const router = expressRouter();
 
 //* <------------------------------------for Login User------------------------------------------------->
-router.post("/", registerValidation, asyncMiddleware(RegisterController));
+router.post(
+  "/",
+  apiLimiterMiddleware,
+  registerValidation,
+  asyncMiddleware(RegisterController)
+);
 
 //* <------------------------------------Check Username Regex-------------------------------------------->
 router.post(

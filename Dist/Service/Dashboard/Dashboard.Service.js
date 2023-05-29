@@ -184,6 +184,9 @@ const getAllPermissionService = (role, tab) => __awaiter(void 0, void 0, void 0,
             },
         },
     ]);
+    if (permission.length == 0) {
+        return { permissionId: null };
+    }
     return permission[0];
 });
 exports.getAllPermissionService = getAllPermissionService;

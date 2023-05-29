@@ -14,6 +14,7 @@ import {
   SubscriptionPlanRoute,
   ReplyRoute,
 } from "../Routes/Index";
+import cors from "cors";
 import { apiLimiterMiddleware } from "../Middleware/RequestLimiter";
 import { apiLoggerMiddleware } from "../Middleware/API_Logger/API_logger.middleware";
 import { jwtAuthMiddleware } from "../Middleware/Auth/authMiddleware";
@@ -22,12 +23,15 @@ import { invalidRouteHandlerMiddleware } from "../Middleware/invalidRoute/RouteG
 export const mainLayout = (app: Application) => {
   //* Middleware for parsing JSON in the request body
   app.use(json());
+  // * Cross Origin
+  app.use(cors());
+
+  app.use("/userRegister", RegisterRoute);
   //*limit the requests per IP (100/15min);
   app.use(apiLimiterMiddleware);
   app.use(apiLoggerMiddleware);
 
   app.use("/userLogin", loginRoute);
-  app.use("/userRegister", RegisterRoute);
   app.use("/role", jwtAuthMiddleware, RoleRoute);
   app.use("/service", jwtAuthMiddleware, ServiceRoute);
   app.use("/users", jwtAuthMiddleware, UserRoute);

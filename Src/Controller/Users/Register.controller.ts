@@ -80,5 +80,8 @@ export const checkUsernameController = async (
   }
 
   //*success
-  return successResponse(res, { message: ResponseMessage.USERNAME_AVAILABLE });
+  return successResponse(res, {
+    message: ResponseMessage.USERNAME_AVAILABLE,
+    data: { validUsername: true },
+  });
 };

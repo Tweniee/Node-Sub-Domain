@@ -70,6 +70,9 @@ const checkUsernameController = (req, res) => __awaiter(void 0, void 0, void 0, 
         });
     }
     //*success
-    return (0, Response_helper_1.successResponse)(res, { message: ResponseMessage_1.default.USERNAME_AVAILABLE });
+    return (0, Response_helper_1.successResponse)(res, {
+        message: ResponseMessage_1.default.USERNAME_AVAILABLE,
+        data: { validUsername: true },
+    });
 });
 exports.checkUsernameController = checkUsernameController;
