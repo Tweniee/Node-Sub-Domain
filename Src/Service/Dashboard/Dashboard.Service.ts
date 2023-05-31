@@ -5,14 +5,20 @@ import IPermissionDashboard from "../../Interface/PermissionDashboard.interface"
 
 export const createDashboardPropertyService = async (
   name: string,
-  role: Types.ObjectId[]
+  role: Types.ObjectId[],
+  route: string
 ) => {
   // *Create a Default Permission and get its _id
   const { _id: permissionId } =
     await createDashboard_Property_Permission_Service();
 
   // * create dashboard property
-  const property = await DashboardModel.create({ name, role, permissionId });
+  const property = await DashboardModel.create({
+    name,
+    role,
+    permissionId,
+    route,
+  });
   return property;
 };
 
@@ -190,6 +196,7 @@ export const getAllPermissionService = async (
       },
     },
   ]);
+
   if (permission.length == 0) {
     return { permissionId: null };
   }

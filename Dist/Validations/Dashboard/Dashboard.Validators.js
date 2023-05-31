@@ -13,6 +13,7 @@ function checkDashboardPropertyValidation(req, res, next) {
         const schema = joi_1.default.object({
             role: joi_1.default.array().items(joi_1.default.string().hex().length(24)).required(),
             name: joi_1.default.string().required(),
+            route: joi_1.default.string().required(),
         });
         const isValid = schema.validate(req.body);
         if (isValid.error) {
@@ -33,6 +34,7 @@ function checkUpdate_DashboardPropertyValidation(req, res, next) {
             propertyId: joi_1.default.string().hex().length(24).required(),
             role: joi_1.default.array().items(joi_1.default.string().hex().length(24)).required(),
             name: joi_1.default.string().required(),
+            route: joi_1.default.string().required(),
         });
         const isValid = schema.validate(req.body);
         if (isValid.error) {

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.restoreTemplateContentController = exports.deleteTemplateContentController = exports.updateTemplateContentController = exports.getAllTemplateContentController = exports.createTemplateContentController = void 0;
+exports.restoreTemplateContentController = exports.deleteTemplateContentController = exports.getContentByContentIdController = exports.updateTemplateContentController = exports.getAllTemplateContentController = exports.createTemplateContentController = void 0;
 const mongoose_1 = require("mongoose");
 const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessage"));
 const Response_helper_1 = require("../../Helper/Response.helper");
@@ -80,7 +80,9 @@ const updateTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
         });
     }
     const { contentId, title, subTitle = null, description } = req.body;
-    const content = yield (0, Template_Service_1.getContentByContentIDService)(contentId);
+    console.log("contentId", contentId);
+    const content = yield (0, Template_Service_1.getContentByContentIdService)(contentId);
+    console.log(">content", content);
     if (content.length == 0) {
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.CONFLICT,
@@ -95,6 +97,16 @@ const updateTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
     });
 });
 exports.updateTemplateContentController = updateTemplateContentController;
+const getContentByContentIdController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { contentId } = req.params;
+    const content = yield (0, Template_Service_1.getContentByContentIdService)(new mongoose_1.Types.ObjectId(contentId));
+    console.log(content);
+    return (0, Response_helper_1.successResponse)(res, {
+        message: ResponseMessage_1.default.UPDATED_SUCCESSFULLY,
+        data: content,
+    });
+});
+exports.getContentByContentIdController = getContentByContentIdController;
 const deleteTemplateContentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tabName } = req.query;
     // *getting this userId from token
@@ -108,7 +120,7 @@ const deleteTemplateContentController = (req, res) => __awaiter(void 0, void 0, 
         });
     }
     const { contentId } = req.params;
-    const content = yield (0, Template_Service_1.getContentByContentIDService)(new mongoose_1.Types.ObjectId(contentId));
+    const content = yield (0, Template_Service_1.getContentByContentIdService)(new mongoose_1.Types.ObjectId(contentId));
     if (content.length == 0) {
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.CONFLICT,

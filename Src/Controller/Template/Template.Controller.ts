@@ -7,6 +7,7 @@ import {
   deleteTemplateContentService,
   getAllTemplateContentService,
   getContentByContentIDService,
+  getContentByContentIdService,
   restoreTemplateContentService,
   updateTemplateContentService,
 } from "../../Service/Template/Template.Service";
@@ -98,7 +99,9 @@ export const updateTemplateContentController = async (
     });
   }
   const { contentId, title, subTitle = null, description } = req.body;
-  const content = await getContentByContentIDService(contentId);
+  console.log("contentId",contentId)
+  const content = await getContentByContentIdService(contentId);
+  console.log(">content",content)
   if (content.length == 0) {
     return errorResponse(res, {
       statusCode: StatusCodes.CONFLICT,
@@ -115,6 +118,21 @@ export const updateTemplateContentController = async (
   return successResponse(res, {
     message: ResponseMessage.UPDATED_SUCCESSFULLY,
     data: updatedContent,
+  });
+};
+
+export const getContentByContentIdController = async (
+  req: expressRequest,
+  res: expressResponse
+) => {
+  const { contentId } = req.params;
+  const content = await getContentByContentIdService(
+    new Types.ObjectId(contentId)
+  );
+  console.log(content);
+  return successResponse(res, {
+    message: ResponseMessage.UPDATED_SUCCESSFULLY,
+    data: content,
   });
 };
 export const deleteTemplateContentController = async (
@@ -137,7 +155,7 @@ export const deleteTemplateContentController = async (
     });
   }
   const { contentId } = req.params;
-  const content = await getContentByContentIDService(
+  const content = await getContentByContentIdService(
     new Types.ObjectId(contentId)
   );
   if (content.length == 0) {

@@ -33,7 +33,6 @@ export const updateParentService = async (
   return updatedParent;
 };
 
-
 export const getAllTemplateContentService = async () => {
   const content = await TemplateContentModel.aggregate([
     {
@@ -82,12 +81,59 @@ export const getAllTemplateContentService = async () => {
 };
 
 export const getContentByContentIDService = async (_id: Types.ObjectId) => {
+  console.log(_id)
   const content = await TemplateContentModel.aggregate([
     {
       $match: {
         _id: { $eq: new Types.ObjectId(_id) },
         isActive: false,
         isDeleted: true,
+      },
+    },
+    {
+      $project: {
+        isActive: 0,
+        isDeleted: 0,
+        createdAt: 0,
+        updatedAt: 0,
+      },
+    },
+    {
+      $lookup: {
+        from: "templatecontents",
+        localField: "children",
+        foreignField: "_id",
+        as: "children",
+        pipeline: [
+          {
+            $match: {
+              parentTab: { $ne: null },
+              isActive: true,
+              isDeleted: false,
+            },
+          },
+          {
+            $project: {
+              isActive: 0,
+              isDeleted: 0,
+              parentTab: 0,
+              createdAt: 0,
+              updatedAt: 0,
+            },
+          },
+        ],
+      },
+    },
+  ]);
+  return content;
+};
+export const getContentByContentIdService = async (_id: Types.ObjectId) => {
+  const content = await TemplateContentModel.aggregate([
+    {
+      $match: {
+        _id: { $eq: new Types.ObjectId(_id) },
+        isActive: true,
+        isDeleted: false,
       },
     },
     {

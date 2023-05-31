@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.restoreTemplateContentService = exports.deleteTemplateContentService = exports.updateTemplateContentService = exports.getContentByContentIDService = exports.getAllTemplateContentService = exports.updateParentService = exports.createTemplateContentService = void 0;
+exports.restoreTemplateContentService = exports.deleteTemplateContentService = exports.updateTemplateContentService = exports.getContentByContentIdService = exports.getContentByContentIDService = exports.getAllTemplateContentService = exports.updateParentService = exports.createTemplateContentService = void 0;
 const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
 const createTemplateContentService = (body, parentId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -73,6 +73,7 @@ const getAllTemplateContentService = () => __awaiter(void 0, void 0, void 0, fun
 });
 exports.getAllTemplateContentService = getAllTemplateContentService;
 const getContentByContentIDService = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(_id);
     const content = yield Index_1.TemplateContentModel.aggregate([
         {
             $match: {
@@ -119,6 +120,53 @@ const getContentByContentIDService = (_id) => __awaiter(void 0, void 0, void 0, 
     return content;
 });
 exports.getContentByContentIDService = getContentByContentIDService;
+const getContentByContentIdService = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    const content = yield Index_1.TemplateContentModel.aggregate([
+        {
+            $match: {
+                _id: { $eq: new mongoose_1.Types.ObjectId(_id) },
+                isActive: true,
+                isDeleted: false,
+            },
+        },
+        {
+            $project: {
+                isActive: 0,
+                isDeleted: 0,
+                createdAt: 0,
+                updatedAt: 0,
+            },
+        },
+        {
+            $lookup: {
+                from: "templatecontents",
+                localField: "children",
+                foreignField: "_id",
+                as: "children",
+                pipeline: [
+                    {
+                        $match: {
+                            parentTab: { $ne: null },
+                            isActive: true,
+                            isDeleted: false,
+                        },
+                    },
+                    {
+                        $project: {
+                            isActive: 0,
+                            isDeleted: 0,
+                            parentTab: 0,
+                            createdAt: 0,
+                            updatedAt: 0,
+                        },
+                    },
+                ],
+            },
+        },
+    ]);
+    return content;
+});
+exports.getContentByContentIdService = getContentByContentIdService;
 const updateTemplateContentService = (contentId, title, description, subTitle) => __awaiter(void 0, void 0, void 0, function* () {
     if (subTitle) {
         const updatedContent = yield Index_1.TemplateContentModel.findOneAndUpdate({ _id: { $eq: new mongoose_1.Types.ObjectId(contentId) } }, { $set: { title, description, subTitle } }, { new: true, upsert: true });

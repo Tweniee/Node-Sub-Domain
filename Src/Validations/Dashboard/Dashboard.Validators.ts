@@ -19,6 +19,7 @@ export function checkDashboardPropertyValidation(
     const schema = Joi.object({
       role: Joi.array().items(Joi.string().hex().length(24)).required(),
       name: Joi.string().required(),
+      route: Joi.string().required(),
     });
 
     const isValid: any = schema.validate(req.body);
@@ -44,6 +45,7 @@ export function checkUpdate_DashboardPropertyValidation(
       propertyId: Joi.string().hex().length(24).required(),
       role: Joi.array().items(Joi.string().hex().length(24)).required(),
       name: Joi.string().required(),
+      route: Joi.string().required(),
     });
 
     const isValid: any = schema.validate(req.body);

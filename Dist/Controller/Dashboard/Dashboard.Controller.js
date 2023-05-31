@@ -19,8 +19,8 @@ const StatusCodes_1 = __importDefault(require("../../Constants/StatusCodes"));
 const Response_helper_1 = require("../../Helper/Response.helper");
 const Dashboard_Service_1 = require("../../Service/Dashboard/Dashboard.Service");
 const createDashboardPropertyController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, role } = req.body;
-    const dashboard = yield (0, Dashboard_Service_1.createDashboardPropertyService)(name, role);
+    const { name, role, route } = req.body;
+    const dashboard = yield (0, Dashboard_Service_1.createDashboardPropertyService)(name, role, route);
     return (0, Response_helper_1.successResponse)(res, {
         message: ResponseMessage_1.default.DASHBOARD_PROPERTY_CREATED,
         data: dashboard,

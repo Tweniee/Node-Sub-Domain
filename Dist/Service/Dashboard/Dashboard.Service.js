@@ -16,11 +16,16 @@ exports.getAllPermissionService = exports.getAllDashboardPropertiesService = exp
 const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
 const Dashboard_Model_1 = __importDefault(require("../../Model/Dashboard/Dashboard.Model"));
-const createDashboardPropertyService = (name, role) => __awaiter(void 0, void 0, void 0, function* () {
+const createDashboardPropertyService = (name, role, route) => __awaiter(void 0, void 0, void 0, function* () {
     // *Create a Default Permission and get its _id
     const { _id: permissionId } = yield (0, exports.createDashboard_Property_Permission_Service)();
     // * create dashboard property
-    const property = yield Dashboard_Model_1.default.create({ name, role, permissionId });
+    const property = yield Dashboard_Model_1.default.create({
+        name,
+        role,
+        permissionId,
+        route,
+    });
     return property;
 });
 exports.createDashboardPropertyService = createDashboardPropertyService;

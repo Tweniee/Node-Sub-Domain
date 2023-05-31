@@ -6,6 +6,7 @@ export interface IDashboard extends Document {
   role: (typeof Types.ObjectId)[];
   name: string;
   permissionId: typeof Types.ObjectId;
+  route: string;
   isActive?: boolean;
   isDeleted?: boolean;
 }
@@ -17,6 +18,10 @@ const dashboardSchema = new Schema<IDashboard>(
     permissionId: {
       type: Schema.Types.ObjectId,
       ref: "Permission",
+      required: true,
+    },
+    route: {
+      type: String,
       required: true,
     },
   },

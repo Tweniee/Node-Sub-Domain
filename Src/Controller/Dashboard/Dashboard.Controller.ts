@@ -14,8 +14,8 @@ export const createDashboardPropertyController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  const { name, role } = req.body;
-  const dashboard = await createDashboardPropertyService(name, role);
+  const { name, role, route } = req.body;
+  const dashboard = await createDashboardPropertyService(name, role, route);
   return successResponse(res, {
     message: ResponseMessage.DASHBOARD_PROPERTY_CREATED,
     data: dashboard,

@@ -2,6 +2,7 @@ import {
   createTemplateContentController,
   deleteTemplateContentController,
   getAllTemplateContentController,
+  getContentByContentIdController,
   restoreTemplateContentController,
   updateTemplateContentController,
 } from "../../Controller/Template/Template.Controller";
@@ -20,6 +21,13 @@ router.post(
   "/create",
   checkCreateTemplateContentValidation,
   asyncMiddleware(createTemplateContentController)
+);
+
+// *<----------------------Get One Template Content Route----------------------------->
+router.get(
+  "/getOne/:contentId",
+  checkTabNameValidation,
+  asyncMiddleware(getContentByContentIdController)
 );
 
 // * <---------------------Get all Template Content Route------------------------------>

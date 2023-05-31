@@ -14,7 +14,8 @@ function checkCreateTemplateContentValidation(req, res, next) {
             parentTab: joi_1.default.string().hex().length(24).allow(null).optional(),
             title: joi_1.default.string().required(),
             subTitle: joi_1.default.string().optional(),
-            description: joi_1.default.string().required(),
+            image: joi_1.default.string().optional().allow(null),
+            description: joi_1.default.string().required()
         });
         const isValid = schema.validate(req.body);
         if (isValid.error) {

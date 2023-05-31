@@ -10,6 +10,10 @@ const dashboardSchema = new mongoose_1.Schema({
         ref: "Permission",
         required: true,
     },
+    route: {
+        type: String,
+        required: true,
+    },
 }, { timestamps: true, versionKey: false });
 dashboardSchema.add(commonOptions_1.commonOptions);
 exports.default = (0, mongoose_1.model)("Dashboard", dashboardSchema);
