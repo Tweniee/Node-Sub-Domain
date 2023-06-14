@@ -44,6 +44,10 @@ router.delete(
 );
 
 // *<--------------------------Get All Dietitian Services Route---------------------------------->
-router.get("/getAll",checkTabNameValidation, asyncMiddleware(getAllDietitianServiceController));
+router.get(
+  "/getAll",
+  checkTabNameValidation,
+  asyncMiddleware(getAllDietitianServiceController)
+);
 
 export default router;
