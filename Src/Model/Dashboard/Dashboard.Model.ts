@@ -5,6 +5,7 @@ import { IPermission } from "./Permissions/Permissions.Model";
 export interface IDashboard extends Document {
   role: (typeof Types.ObjectId)[];
   name: string;
+  image: string;
   permissionId: typeof Types.ObjectId;
   route: string;
   isActive?: boolean;
@@ -14,6 +15,7 @@ export interface IDashboard extends Document {
 const dashboardSchema = new Schema<IDashboard>(
   {
     role: [{ type: Types.ObjectId, ref: "Role", required: true }],
+    image: { type: String, required: true },
     name: { type: String, required: true },
     permissionId: {
       type: Schema.Types.ObjectId,

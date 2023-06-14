@@ -32,7 +32,7 @@ const createDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
             errors: {},
         });
     }
-    const { serviceName, description, price, durationInMinutes, availableDays } = req.body;
+    const { serviceName, description, price, durationInMinutes, numberOfSessionPerWeek, totalWeekForSession, } = req.body;
     const dietitian = new mongoose_1.Types.ObjectId(req.userId);
     const dietitianService = yield (0, DieitianService_Service_1.createDietitianService_Service)({
         serviceName,
@@ -41,7 +41,8 @@ const createDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
         tabName,
         price,
         durationInMinutes,
-        availableDays,
+        numberOfSessionPerWeek,
+        totalWeekForSession,
     });
     return (0, Response_helper_1.successResponse)(res, {
         message: ResponseMessage_1.default.DIETITIAN_SERVICE_CREATED,
@@ -88,7 +89,7 @@ const updateDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
             errors: {},
         });
     }
-    const { serviceId = null, description, price, durationInMinutes, availableDays, } = req.body;
+    const { serviceId = null, description, price, durationInMinutes, numberOfSessionPerWeek, totalWeekForSession, } = req.body;
     if (!serviceId) {
         return (0, Response_helper_1.errorResponse)(res, {
             statusCode: StatusCodes_1.default.BAD_REQUEST,
@@ -102,7 +103,8 @@ const updateDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
         description,
         price,
         durationInMinutes,
-        availableDays,
+        numberOfSessionPerWeek,
+        totalWeekForSession,
     }, dietitian);
     if (!dietitianService) {
         return (0, Response_helper_1.errorResponse)(res, {

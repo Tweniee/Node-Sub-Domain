@@ -16,7 +16,7 @@ exports.getAllPermissionService = exports.getAllDashboardPropertiesService = exp
 const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
 const Dashboard_Model_1 = __importDefault(require("../../Model/Dashboard/Dashboard.Model"));
-const createDashboardPropertyService = (name, role, route) => __awaiter(void 0, void 0, void 0, function* () {
+const createDashboardPropertyService = (name, role, route, image) => __awaiter(void 0, void 0, void 0, function* () {
     // *Create a Default Permission and get its _id
     const { _id: permissionId } = yield (0, exports.createDashboard_Property_Permission_Service)();
     // * create dashboard property
@@ -25,6 +25,7 @@ const createDashboardPropertyService = (name, role, route) => __awaiter(void 0, 
         role,
         permissionId,
         route,
+        image,
     });
     return property;
 });
@@ -34,8 +35,8 @@ const createDashboard_Property_Permission_Service = () => __awaiter(void 0, void
     return permission;
 });
 exports.createDashboard_Property_Permission_Service = createDashboard_Property_Permission_Service;
-const updateDashBoardPropertyService = (name, role, propertyId) => __awaiter(void 0, void 0, void 0, function* () {
-    const updatedProperty = yield Dashboard_Model_1.default.findOneAndUpdate({ _id: { $eq: new mongoose_1.Types.ObjectId(propertyId) } }, { $set: { name, role } }, { new: true });
+const updateDashBoardPropertyService = (name, role, propertyId, image) => __awaiter(void 0, void 0, void 0, function* () {
+    const updatedProperty = yield Dashboard_Model_1.default.findOneAndUpdate({ _id: { $eq: new mongoose_1.Types.ObjectId(propertyId) } }, { $set: { name, role, image } }, { new: true });
     return updatedProperty;
 });
 exports.updateDashBoardPropertyService = updateDashBoardPropertyService;

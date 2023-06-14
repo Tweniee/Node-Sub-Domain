@@ -22,26 +22,8 @@ export function checkDietitianServiceValidation(
       description: Joi.string().required(),
       price: Joi.number().positive().required(),
       durationInMinutes: Joi.number().positive().required(),
-      availableDays: Joi.array()
-        .items(
-          Joi.string().valid(
-            UniqueValues.MONDAY,
-            UniqueValues.TUESDAY,
-            UniqueValues.WEDNESDAY,
-            UniqueValues.THURSDAY,
-            UniqueValues.FRIDAY,
-            UniqueValues.SATURDAY,
-            UniqueValues.SUNDAY,
-            UniqueValues.SMALL_MONDAY,
-            UniqueValues.SMALL_TUESDAY,
-            UniqueValues.SMALL_WEDNESDAY,
-            UniqueValues.SMALL_THURSDAY,
-            UniqueValues.SMALL_FRIDAY,
-            UniqueValues.SMALL_SATURDAY,
-            UniqueValues.SMALL_SUNDAY
-          )
-        )
-        .required(),
+      numberOfSessionPerWeek: Joi.number().positive().required(),
+      totalWeekForSession: Joi.number().positive().required(),
     });
 
     const isValid: any = schema.validate(req.body);
@@ -68,26 +50,8 @@ export function checkUpdateDietitianServiceValidation(
       description: Joi.string().required(),
       price: Joi.number().positive().required(),
       durationInMinutes: Joi.number().positive().required(),
-      availableDays: Joi.array()
-        .items(
-          Joi.string().valid(
-            UniqueValues.MONDAY,
-            UniqueValues.TUESDAY,
-            UniqueValues.WEDNESDAY,
-            UniqueValues.THURSDAY,
-            UniqueValues.FRIDAY,
-            UniqueValues.SATURDAY,
-            UniqueValues.SUNDAY,
-            UniqueValues.SMALL_MONDAY,
-            UniqueValues.SMALL_TUESDAY,
-            UniqueValues.SMALL_WEDNESDAY,
-            UniqueValues.SMALL_THURSDAY,
-            UniqueValues.SMALL_FRIDAY,
-            UniqueValues.SMALL_SATURDAY,
-            UniqueValues.SMALL_SUNDAY
-          )
-        )
-        .required(),
+      numberOfSessionPerWeek: Joi.number().positive().required(),
+      totalWeekForSession: Joi.number().positive().required(),
     });
 
     const isValid: any = schema.validate(req.body);

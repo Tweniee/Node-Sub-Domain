@@ -11,6 +11,7 @@ function checkDashboardPropertyValidation(req, res, next) {
     try {
         // *valid(Types.ObjectId.toString()* //
         const schema = joi_1.default.object({
+            image: joi_1.default.string().required(),
             role: joi_1.default.array().items(joi_1.default.string().hex().length(24)).required(),
             name: joi_1.default.string().required(),
             route: joi_1.default.string().required(),
@@ -31,6 +32,7 @@ function checkUpdate_DashboardPropertyValidation(req, res, next) {
     try {
         // *valid(Types.ObjectId.toString()* //
         const schema = joi_1.default.object({
+            image: joi_1.default.string().required(),
             propertyId: joi_1.default.string().hex().length(24).required(),
             role: joi_1.default.array().items(joi_1.default.string().hex().length(24)).required(),
             name: joi_1.default.string().required(),

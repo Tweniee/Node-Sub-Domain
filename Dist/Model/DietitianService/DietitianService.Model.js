@@ -38,6 +38,11 @@ const DietitianServiceSchema = new mongoose_1.Schema({
         ref: "Service",
         required: true,
     },
+    numberOfSessionPerWeek: {
+        type: Number,
+        required: true,
+    },
+    totalWeekForSession: { type: Number, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
     durationInMinutes: { type: Number, required: true },

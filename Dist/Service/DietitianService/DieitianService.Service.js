@@ -18,14 +18,22 @@ const createDietitianService_Service = (body) => __awaiter(void 0, void 0, void 
     return dietitianService;
 });
 exports.createDietitianService_Service = createDietitianService_Service;
-// * Update Single Servive
+// * Update Single Service
 const updateDietitianService_Service = (body, dietitian) => __awaiter(void 0, void 0, void 0, function* () {
-    const { serviceId, description, price, durationInMinutes, availableDays } = body;
+    const { serviceId, description, price, durationInMinutes, numberOfSessionPerWeek, totalWeekForSession, } = body;
     const dietitianService = yield (0, exports.getSingleDietitianService_Service)(serviceId, dietitian);
     if (dietitianService.length == 0) {
         return false;
     }
-    const updatedDietitianService = yield Index_1.DietitianServiceModel.findOneAndUpdate({ _id: new mongoose_1.Types.ObjectId(serviceId) }, { $set: { description, price, durationInMinutes, availableDays } }, { new: true });
+    const updatedDietitianService = yield Index_1.DietitianServiceModel.findOneAndUpdate({ _id: new mongoose_1.Types.ObjectId(serviceId) }, {
+        $set: {
+            description,
+            price,
+            durationInMinutes,
+            numberOfSessionPerWeek,
+            totalWeekForSession,
+        },
+    }, { new: true });
     return updatedDietitianService;
 });
 exports.updateDietitianService_Service = updateDietitianService_Service;

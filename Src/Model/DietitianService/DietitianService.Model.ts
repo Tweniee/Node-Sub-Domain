@@ -3,17 +3,19 @@ import { commonOptions } from "../Constants/commonOptions";
 
 // Define interface for DietitianService document
 interface IDietitianService extends Document {
-  tabName: mongoose.Types.ObjectId;
-  serviceName: mongoose.Types.ObjectId;
+  tabName: Schema.Types.ObjectId;
+  serviceName: Schema.Types.ObjectId;
   description: string;
   price: number;
+  numberOfSessionPerWeek: number;
+  totalWeekForSession: number;
   durationInMinutes: number;
   availableDays: string[];
-  dietitian: mongoose.Types.ObjectId;
+  dietitian: Schema.Types.ObjectId;
 }
 
 // Define schema for DietitianService
-const DietitianServiceSchema: Schema = new Schema(
+const DietitianServiceSchema: Schema = new Schema<IDietitianService>(
   {
     tabName: {
       type: mongoose.Types.ObjectId,
@@ -26,8 +28,14 @@ const DietitianServiceSchema: Schema = new Schema(
       ref: "Service",
       required: true,
     },
+    numberOfSessionPerWeek: {
+      type: Number,
+      required: true,
+    },
+    totalWeekForSession: { type: Number, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
+
     durationInMinutes: { type: Number, required: true },
     // * durationInMinutes Field Allow Dietitian to set the time limit of the session they will take one on one with the client //
     availableDays: [{ type: String }],

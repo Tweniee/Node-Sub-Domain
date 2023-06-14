@@ -6,7 +6,8 @@ import IPermissionDashboard from "../../Interface/PermissionDashboard.interface"
 export const createDashboardPropertyService = async (
   name: string,
   role: Types.ObjectId[],
-  route: string
+  route: string,
+  image: string
 ) => {
   // *Create a Default Permission and get its _id
   const { _id: permissionId } =
@@ -18,6 +19,7 @@ export const createDashboardPropertyService = async (
     role,
     permissionId,
     route,
+    image,
   });
   return property;
 };
@@ -30,11 +32,12 @@ export const createDashboard_Property_Permission_Service = async () => {
 export const updateDashBoardPropertyService = async (
   name: string,
   role: Types.ObjectId[],
-  propertyId: Types.ObjectId
+  propertyId: Types.ObjectId,
+  image: string
 ) => {
   const updatedProperty = await DashboardModel.findOneAndUpdate(
     { _id: { $eq: new Types.ObjectId(propertyId) } },
-    { $set: { name, role } },
+    { $set: { name, role, image } },
     { new: true }
   );
 
@@ -83,7 +86,7 @@ export const getPropertyByPropertyIdService = async (
     },
     {
       $project: {
-        isActive: 0,
+         isActive: 0,
         isDeleted: 0,
         createdAt: 0,
         updatedAt: 0,

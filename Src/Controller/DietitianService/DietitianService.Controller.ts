@@ -33,8 +33,14 @@ export const createDietitianServiceController = async (
       errors: {},
     });
   }
-  const { serviceName, description, price, durationInMinutes, availableDays } =
-    req.body;
+  const {
+    serviceName,
+    description,
+    price,
+    durationInMinutes,
+    numberOfSessionPerWeek,
+    totalWeekForSession,
+  } = req.body;
   const dietitian = new Types.ObjectId(req.userId);
   const dietitianService = await createDietitianService_Service({
     serviceName,
@@ -43,7 +49,8 @@ export const createDietitianServiceController = async (
     tabName,
     price,
     durationInMinutes,
-    availableDays,
+    numberOfSessionPerWeek,
+    totalWeekForSession,
   });
   return successResponse(res, {
     message: ResponseMessage.DIETITIAN_SERVICE_CREATED,
@@ -110,7 +117,8 @@ export const updateDietitianServiceController = async (
     description,
     price,
     durationInMinutes,
-    availableDays,
+    numberOfSessionPerWeek,
+    totalWeekForSession,
   } = req.body;
   if (!serviceId) {
     return errorResponse(res, {
@@ -126,7 +134,8 @@ export const updateDietitianServiceController = async (
       description,
       price,
       durationInMinutes,
-      availableDays,
+      numberOfSessionPerWeek,
+      totalWeekForSession,
     },
     dietitian
   );

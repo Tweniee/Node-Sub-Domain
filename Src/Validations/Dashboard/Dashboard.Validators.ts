@@ -17,6 +17,7 @@ export function checkDashboardPropertyValidation(
   try {
     // *valid(Types.ObjectId.toString()* //
     const schema = Joi.object({
+      image: Joi.string().required(),
       role: Joi.array().items(Joi.string().hex().length(24)).required(),
       name: Joi.string().required(),
       route: Joi.string().required(),
@@ -42,6 +43,7 @@ export function checkUpdate_DashboardPropertyValidation(
   try {
     // *valid(Types.ObjectId.toString()* //
     const schema = Joi.object({
+      image: Joi.string().required(),
       propertyId: Joi.string().hex().length(24).required(),
       role: Joi.array().items(Joi.string().hex().length(24)).required(),
       name: Joi.string().required(),

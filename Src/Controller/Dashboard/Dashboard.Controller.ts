@@ -14,8 +14,13 @@ export const createDashboardPropertyController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  const { name, role, route } = req.body;
-  const dashboard = await createDashboardPropertyService(name, role, route);
+  const { name, role, route, image } = req.body;
+  const dashboard = await createDashboardPropertyService(
+    name,
+    role,
+    route,
+    image
+  );
   return successResponse(res, {
     message: ResponseMessage.DASHBOARD_PROPERTY_CREATED,
     data: dashboard,
@@ -26,7 +31,7 @@ export const updateDashboardPropertyController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  const { name, role, propertyId } = req.body;
+  const { name, role, propertyId, image } = req.body;
   // * checks if the property is available or not
   const isValidProperty = await getPropertyByPropertyIdService(propertyId);
   if (isValidProperty.length == 0) {
@@ -40,7 +45,8 @@ export const updateDashboardPropertyController = async (
   const updatedProperty = await updateDashBoardPropertyService(
     name,
     role,
-    propertyId
+    propertyId,
+    image
   );
   return successResponse(res, {
     message: ResponseMessage.PROPERTY_UPDATED,

@@ -13,13 +13,19 @@ export const createDietitianService_Service = async (
   return dietitianService;
 };
 
-// * Update Single Servive
+// * Update Single Service
 export const updateDietitianService_Service = async (
   body: UpdateDietitianServiceInterface,
   dietitian: string
 ) => {
-  const { serviceId, description, price, durationInMinutes, availableDays } =
-    body;
+  const {
+    serviceId,
+    description,
+    price,
+    durationInMinutes,
+    numberOfSessionPerWeek,
+    totalWeekForSession,
+  } = body;
   const dietitianService = await getSingleDietitianService_Service(
     serviceId,
     dietitian
@@ -29,7 +35,15 @@ export const updateDietitianService_Service = async (
   }
   const updatedDietitianService = await DietitianServiceModel.findOneAndUpdate(
     { _id: new Types.ObjectId(serviceId) },
-    { $set: { description, price, durationInMinutes, availableDays } },
+    {
+      $set: {
+        description,
+        price,
+        durationInMinutes,
+        numberOfSessionPerWeek,
+        totalWeekForSession,
+      },
+    },
     { new: true }
   );
   return updatedDietitianService;
