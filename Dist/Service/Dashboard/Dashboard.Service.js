@@ -190,6 +190,7 @@ const getAllPermissionService = (role, tab) => __awaiter(void 0, void 0, void 0,
             },
         },
     ]);
+    console.log(permission);
     if (permission.length == 0) {
         return { permissionId: null };
     }

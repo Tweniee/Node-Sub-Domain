@@ -17,7 +17,7 @@ const mainLayout = (app) => {
     // * Cross Origin
     app.use((0, cors_1.default)());
     app.use("/userRegister", Index_1.RegisterRoute);
-    //*limit the requests per IP (100/15min);
+    //*limit the requests per IP (1000/15min);
     app.use(RequestLimiter_1.apiLimiterMiddleware);
     app.use(API_logger_middleware_1.apiLoggerMiddleware);
     app.use("/userLogin", Index_1.loginRoute);

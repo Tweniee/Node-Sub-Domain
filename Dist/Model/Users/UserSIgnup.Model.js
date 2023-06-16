@@ -25,6 +25,20 @@ const userSchema = new mongoose_1.Schema({
         required: true,
         unique: true,
     },
+    availableDays: [
+        {
+            type: String,
+            default: null,
+        },
+    ],
+    sessionEndTime: {
+        type: String,
+        default: null,
+    },
+    sessionStartTime: {
+        type: String,
+        default: null,
+    },
     phoneNumber: {
         type: String,
         required: true,
@@ -37,7 +51,7 @@ const userSchema = new mongoose_1.Schema({
     dateOfBirth: {
         type: Date,
         required: true,
-    }
+    },
 }, {
     timestamps: true,
     versionKey: false,

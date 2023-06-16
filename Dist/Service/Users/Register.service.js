@@ -15,7 +15,7 @@ const Index_1 = require("../../Model/Index");
 const Role_service_1 = require("../Roles/Role.service");
 const registerService = (req) => __awaiter(void 0, void 0, void 0, function* () {
     //* Extract user data from request body
-    const { firstName, lastName, email, username, role, password, dateOfBirth, phoneNumber, } = req.body;
+    const { firstName, lastName, email, username, role, password, dateOfBirth, phoneNumber, availableDays, sessionEndTime, sessionStartTime, } = req.body;
     const roleId = yield (0, Role_service_1.searchRoleByRoleName)(role);
     const user = yield Index_1.UserModel.create({
         firstName,
@@ -25,6 +25,9 @@ const registerService = (req) => __awaiter(void 0, void 0, void 0, function* () 
         role: roleId[0]._id,
         password: yield (0, passwordMiddleware_1.hashPassword)(password),
         dateOfBirth,
+        availableDays,
+        sessionEndTime,
+        sessionStartTime,
         phoneNumber,
     });
     return user;

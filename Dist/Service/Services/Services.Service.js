@@ -13,7 +13,7 @@ exports.getAllServicesService = exports.getServiceByServiceIdService = exports.s
 const mongoose_1 = require("mongoose");
 const Index_1 = require("../../Model/Index");
 // * Create Service from super admin dashboard
-const serviceCreateService = (name, description) => __awaiter(void 0, void 0, void 0, function* () {
+const serviceCreateService = (name, description, image) => __awaiter(void 0, void 0, void 0, function* () {
     const service = yield (0, exports.getServiceByServiceName)(name);
     if (service.length > 0) {
         return false;
@@ -21,6 +21,7 @@ const serviceCreateService = (name, description) => __awaiter(void 0, void 0, vo
     const createdService = yield Index_1.ServiceModel.create({
         name,
         description,
+        image,
     });
     return createdService;
 });
@@ -50,14 +51,14 @@ const getServiceByServiceName = (name) => __awaiter(void 0, void 0, void 0, func
 });
 exports.getServiceByServiceName = getServiceByServiceName;
 // * Update Service By service ID
-const serviceUpdateService = (name, description, serviceId) => __awaiter(void 0, void 0, void 0, function* () {
+const serviceUpdateService = (name, description, serviceId, image) => __awaiter(void 0, void 0, void 0, function* () {
     const service = yield (0, exports.getServiceByServiceIdService)(serviceId);
     if (service.length == 0) {
         return false;
     }
     const updatedService = yield Index_1.ServiceModel.findOneAndUpdate({
         _id: { $eq: new mongoose_1.Types.ObjectId(serviceId) },
-    }, { $set: { name, description } }, { new: true });
+    }, { $set: { name, description, image } }, { new: true });
     return updatedService;
 });
 exports.serviceUpdateService = serviceUpdateService;

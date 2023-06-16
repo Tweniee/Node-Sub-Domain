@@ -14,6 +14,9 @@ export const registerService = async (req: expressRequest): Promise<any> => {
     password,
     dateOfBirth,
     phoneNumber,
+    availableDays,
+    sessionEndTime,
+    sessionStartTime,
   } = req.body;
   const roleId = await searchRoleByRoleName(role);
 
@@ -25,6 +28,9 @@ export const registerService = async (req: expressRequest): Promise<any> => {
     role: roleId[0]._id,
     password: await hashPassword(password),
     dateOfBirth,
+    availableDays,
+    sessionEndTime,
+    sessionStartTime,
     phoneNumber,
   });
   return user;

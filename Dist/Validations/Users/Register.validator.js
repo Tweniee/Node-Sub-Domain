@@ -16,6 +16,11 @@ function registerValidation(req, res, next) {
             firstName: joi_1.default.string().required(),
             lastName: joi_1.default.string().required(),
             email: joi_1.default.string().email().required(),
+            sessionStartTime: joi_1.default.string().required(),
+            availableDays: joi_1.default.array()
+                .items(joi_1.default.string().valid(UniqueValues_1.default.MONDAY, UniqueValues_1.default.TUESDAY, UniqueValues_1.default.WEDNESDAY, UniqueValues_1.default.THURSDAY, UniqueValues_1.default.FRIDAY, UniqueValues_1.default.SATURDAY, UniqueValues_1.default.SUNDAY, UniqueValues_1.default.SMALL_MONDAY, UniqueValues_1.default.SMALL_TUESDAY, UniqueValues_1.default.SMALL_WEDNESDAY, UniqueValues_1.default.SMALL_THURSDAY, UniqueValues_1.default.SMALL_FRIDAY, UniqueValues_1.default.SMALL_SATURDAY, UniqueValues_1.default.SMALL_SUNDAY))
+                .required(),
+            sessionEndTime: joi_1.default.string().required(),
             role: joi_1.default.string()
                 .required()
                 .valid(UniqueValues_1.default.ADMIN, UniqueValues_1.default.SUPER_ADMIN, UniqueValues_1.default.CLIENT, UniqueValues_1.default.DIETITIAN),

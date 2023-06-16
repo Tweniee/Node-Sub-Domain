@@ -22,6 +22,28 @@ export function registerValidation(
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
       email: Joi.string().email().required(),
+      sessionStartTime: Joi.string().required(),
+      availableDays: Joi.array()
+        .items(
+          Joi.string().valid(
+            UniqueValues.MONDAY,
+            UniqueValues.TUESDAY,
+            UniqueValues.WEDNESDAY,
+            UniqueValues.THURSDAY,
+            UniqueValues.FRIDAY,
+            UniqueValues.SATURDAY,
+            UniqueValues.SUNDAY,
+            UniqueValues.SMALL_MONDAY,
+            UniqueValues.SMALL_TUESDAY,
+            UniqueValues.SMALL_WEDNESDAY,
+            UniqueValues.SMALL_THURSDAY,
+            UniqueValues.SMALL_FRIDAY,
+            UniqueValues.SMALL_SATURDAY,
+            UniqueValues.SMALL_SUNDAY
+          )
+        )
+        .required(),
+      sessionEndTime: Joi.string().required(),
       role: Joi.string()
         .required()
         .valid(

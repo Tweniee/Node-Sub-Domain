@@ -199,7 +199,7 @@ export const getAllPermissionService = async (
       },
     },
   ]);
-
+  console.log(permission)
   if (permission.length == 0) {
     return { permissionId: null };
   }

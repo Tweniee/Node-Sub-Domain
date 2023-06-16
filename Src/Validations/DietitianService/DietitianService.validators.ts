@@ -47,6 +47,7 @@ export function checkUpdateDietitianServiceValidation(
     const schema = Joi.object({
       tabName: Joi.string().hex().length(24).required(),
       serviceId: Joi.string().hex().length(24).required(),
+      serviceName: Joi.string().hex().length(24).required(),
       description: Joi.string().required(),
       price: Joi.number().positive().required(),
       durationInMinutes: Joi.number().positive().required(),

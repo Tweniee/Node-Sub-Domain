@@ -27,10 +27,11 @@ export const mainLayout = (app: Application) => {
   app.use(cors());
 
   app.use("/userRegister", RegisterRoute);
-  //*limit the requests per IP (100/15min);
+  //*limit the requests per IP (1000/15min);
   app.use(apiLimiterMiddleware);
   app.use(apiLoggerMiddleware);
 
+  
   app.use("/userLogin", loginRoute);
   app.use("/role", jwtAuthMiddleware, RoleRoute);
   app.use("/service", jwtAuthMiddleware, ServiceRoute);

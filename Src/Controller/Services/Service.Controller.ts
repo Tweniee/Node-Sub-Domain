@@ -1,5 +1,6 @@
 import ResponseMessage from "../../Constants/ResponseMessage";
 import StatusCodes from "../../Constants/StatusCodes";
+import path from "path";
 import { expressRequest, expressResponse } from "../../Dependencies";
 import { errorResponse, successResponse } from "../../Helper/Response.helper";
 import {
@@ -9,6 +10,7 @@ import {
   serviceCreateService,
   serviceUpdateService,
 } from "../../Service/Services/Services.Service";
+import { transformImageName } from "../../Helper/fileUpload/fileUpload.helper";
 
 // * A Super Admin will create service that out portal will provide
 // * Dietitian then can select these service and provide services
@@ -17,18 +19,42 @@ export const createServiceController = async (
   res: expressResponse
 ) => {
   const { name, description } = req.body;
-  const service = await serviceCreateService(name, description);
-  if (!service) {
+  if (!req.files || Object.keys(req.files).length === 0) {
     return errorResponse(res, {
-      statusCode: StatusCodes.CONFLICT,
-      message: ResponseMessage.SERVICE_ALREADY_EXISTS,
+      statusCode: StatusCodes.BAD_REQUEST,
+      message: ResponseMessage.NO_FILE_UPLOAD,
       errors: {},
     });
   }
-  return successResponse(res, {
-    message: ResponseMessage.SERVICE_CREATED_SUCCESSFULLY,
-    data: service,
-  });
+
+  const file: any = req.files.image;
+  // Handle the uploaded file as needed
+  file.mv(
+    path.join(__dirname, "/../../uploads/", transformImageName(file.name)),
+    async (error: Error) => {
+      if (error) {
+        console.error(error);
+        console.log({ message: "Error uploading file" });
+        return;
+      }
+
+      // File successfully uploaded
+      console.log({ message: "File uploaded successfully" });
+      const image = transformImageName(file.name);
+      const service = await serviceCreateService(name, description, image);
+      if (!service) {
+        return errorResponse(res, {
+          statusCode: StatusCodes.CONFLICT,
+          message: ResponseMessage.SERVICE_ALREADY_EXISTS,
+          errors: {},
+        });
+      }
+      return successResponse(res, {
+        message: ResponseMessage.SERVICE_CREATED_SUCCESSFULLY,
+        data: service,
+      });
+    }
+  );
 };
 
 // * A Super Admin will update a service that out portal is providing
@@ -37,19 +63,63 @@ export const updateServiceController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  const { name, description, serviceId } = req.body;
-  const service = await serviceUpdateService(name, description, serviceId);
-  if (!service) {
-    return errorResponse(res, {
-      statusCode: StatusCodes.CONFLICT,
-      message: ResponseMessage.SERVICE_NOT_FOUND,
-      errors: {},
+  const { name, description, serviceId, image = null } = req.body;
+  // Handle the uploaded file as needed
+  let images = "";
+  if (!req.files || Object.keys(req.files).length === 0) {
+    images = image;
+    const service = await serviceUpdateService(
+      name,
+      description,
+      serviceId,
+      images
+    );
+    if (!service) {
+      return errorResponse(res, {
+        statusCode: StatusCodes.CONFLICT,
+        message: ResponseMessage.SERVICE_NOT_FOUND,
+        errors: {},
+      });
+    }
+    return successResponse(res, {
+      message: ResponseMessage.SERVICE_UPDATED_SUCCESSFULLY,
+      data: service,
     });
+  } else {
+    const file: any = req.files.image;
+    console.log(file);
+    file.mv(
+      path.join(__dirname, "/../../uploads/", transformImageName(file.name)),
+      async (error: Error) => {
+        if (error) {
+          console.error(error);
+          console.log({ message: "Error uploading file" });
+          return;
+        }
+
+        // File successfully uploaded
+        console.log({ message: "File uploaded successfully" });
+        images = transformImageName(file.name);
+        const service = await serviceUpdateService(
+          name,
+          description,
+          serviceId,
+          images
+        );
+        if (!service) {
+          return errorResponse(res, {
+            statusCode: StatusCodes.CONFLICT,
+            message: ResponseMessage.SERVICE_NOT_FOUND,
+            errors: {},
+          });
+        }
+        return successResponse(res, {
+          message: ResponseMessage.SERVICE_UPDATED_SUCCESSFULLY,
+          data: service,
+        });
+      }
+    );
   }
-  return successResponse(res, {
-    message: ResponseMessage.SERVICE_UPDATED_SUCCESSFULLY,
-    data: service,
-  });
 };
 
 // * All users will be able to get all services that our portal offers

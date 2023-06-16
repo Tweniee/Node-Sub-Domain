@@ -4,7 +4,8 @@ import { ServiceModel } from "../../Model/Index";
 // * Create Service from super admin dashboard
 export const serviceCreateService = async (
   name: string,
-  description: string
+  description: string,
+  image: string
 ) => {
   const service = await getServiceByServiceName(name);
   if (service.length > 0) {
@@ -13,6 +14,7 @@ export const serviceCreateService = async (
   const createdService = await ServiceModel.create({
     name,
     description,
+    image,
   });
 
   return createdService;
@@ -46,7 +48,8 @@ export const getServiceByServiceName = async (name: string) => {
 export const serviceUpdateService = async (
   name: string,
   description: string,
-  serviceId: string
+  serviceId: string,
+  image: string
 ) => {
   const service = await getServiceByServiceIdService(serviceId);
   if (service.length == 0) {
@@ -56,7 +59,7 @@ export const serviceUpdateService = async (
     {
       _id: { $eq: new Types.ObjectId(serviceId) },
     },
-    { $set: { name, description } },
+    { $set: { name, description, image } },
     { new: true }
   );
   return updatedService;

@@ -12,6 +12,9 @@ export interface IUser extends Document {
   username: string;
   createdAt: Date;
   updatedAt: Date;
+  sessionEndTime?: string;
+  sessionStartTime?: string;
+  availableDays?: string[];
   isActive?: boolean;
   isDeleted?: boolean;
 }
@@ -40,6 +43,20 @@ const userSchema = new Schema<IUser>(
       required: true,
       unique: true,
     },
+    availableDays: [
+      {
+        type: String,
+        default: null,
+      },
+    ],
+    sessionEndTime: {
+      type: String,
+      default: null,
+    },
+    sessionStartTime: {
+      type: String,
+      default: null,
+    },
     phoneNumber: {
       type: String,
       required: true,
@@ -52,7 +69,7 @@ const userSchema = new Schema<IUser>(
     dateOfBirth: {
       type: Date,
       required: true,
-    }
+    },
   },
   {
     timestamps: true,
@@ -60,6 +77,6 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-userSchema.add(commonOptions)
+userSchema.add(commonOptions);
 
 export default model<IUser>("users", userSchema);

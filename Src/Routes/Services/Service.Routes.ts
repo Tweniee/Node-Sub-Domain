@@ -11,6 +11,7 @@ import { authorize } from "../../Middleware/RBAC/RBAC.Middleware";
 import { checkCreateRoleValidation } from "../../Validations/Roles/Role.Validator";
 import {
   checkCreateServiceValidation,
+  checkFileUploadValidation,
   checkUpdateServiceValidation,
 } from "../../Validations/Services/Service.validators";
 import uniqueValue from "../../Constants/UniqueValues";
@@ -19,14 +20,21 @@ const router = expressRouter();
 // * <----------------------Create Service----------------------->
 router.post(
   "/create",
-  [checkCreateServiceValidation, authorize([uniqueValue.SUPER_ADMIN])],
+  [
+    checkCreateServiceValidation,
+    checkFileUploadValidation,
+    authorize([uniqueValue.SUPER_ADMIN]),
+  ],
   asyncMiddleware(createServiceController)
 );
 
 // * <----------------------Update Service----------------------->
 router.patch(
   "/update",
-  [checkUpdateServiceValidation, authorize([uniqueValue.SUPER_ADMIN])],
+  [
+    checkUpdateServiceValidation,
+    authorize([uniqueValue.SUPER_ADMIN]),
+  ],
   asyncMiddleware(updateServiceController)
 );
 
