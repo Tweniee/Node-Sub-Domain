@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReplyRoute = exports.EnquiryRoute = exports.SubscriptionPlanRoute = exports.ClientRoute = exports.DietitianServiceRoute = exports.TemplateRoute = exports.PermissionRoute = exports.DashBoardRoute = exports.ServiceRoute = exports.RoleRoute = exports.loginRoute = exports.UserRoute = exports.RegisterRoute = void 0;
+exports.ReplyRoute = exports.EnquiryRoute = exports.SubscriptionPlanRoute = exports.ClientRoute = exports.DietitianServiceRoute = exports.PermissionRoute = exports.DashBoardRoute = exports.ServiceRoute = exports.RoleRoute = exports.loginRoute = exports.UserRoute = exports.RegisterRoute = exports.TemplateRoute = void 0;
 const login_routes_1 = __importDefault(require("./Users/login.routes"));
 exports.loginRoute = login_routes_1.default;
 const Register_routes_1 = __importDefault(require("./Users/Register.routes"));
@@ -18,8 +18,6 @@ const Dashboard_Routes_1 = __importDefault(require("./Dashboard/Dashboard.Routes
 exports.DashBoardRoute = Dashboard_Routes_1.default;
 const Permission_Routes_1 = __importDefault(require("./Dashboard/Permissions/Permission.Routes"));
 exports.PermissionRoute = Permission_Routes_1.default;
-const Template_Routes_1 = __importDefault(require("./Templates/Template.Routes"));
-exports.TemplateRoute = Template_Routes_1.default;
 const DietitianService_Routes_1 = __importDefault(require("./DietitianService/DietitianService.Routes"));
 exports.DietitianServiceRoute = DietitianService_Routes_1.default;
 const Client_Routes_1 = __importDefault(require("./Client/Client.Routes"));
@@ -30,3 +28,5 @@ const Enquiry_Routes_1 = __importDefault(require("./Enquiry/Enquiry.Routes"));
 exports.EnquiryRoute = Enquiry_Routes_1.default;
 const Reply_Routes_1 = __importDefault(require("./Enquiry/Reply/Reply.Routes"));
 exports.ReplyRoute = Reply_Routes_1.default;
+const Template_routes_1 = __importDefault(require("./Template/Template.routes"));
+exports.TemplateRoute = Template_routes_1.default;

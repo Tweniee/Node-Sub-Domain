@@ -7,12 +7,12 @@ import {
   UserRoute,
   DashBoardRoute,
   PermissionRoute,
-  TemplateRoute,
   DietitianServiceRoute,
   EnquiryRoute,
   ClientRoute,
   SubscriptionPlanRoute,
   ReplyRoute,
+  TemplateRoute,
 } from "../Routes/Index";
 import cors from "cors";
 import { apiLimiterMiddleware } from "../Middleware/RequestLimiter";
@@ -38,7 +38,7 @@ export const mainLayout = (app: Application) => {
   app.use("/users", jwtAuthMiddleware, UserRoute);
   app.use("/dashboard", jwtAuthMiddleware, DashBoardRoute);
   app.use("/permission", jwtAuthMiddleware, PermissionRoute);
-  app.use("/templateContent", jwtAuthMiddleware, TemplateRoute);
+  app.use("/templateContent", jwtAuthMiddleware, TemplateRoute); // * new approach
   app.use("/dietitianService", jwtAuthMiddleware, DietitianServiceRoute);
   app.use("/clientEnquiry", jwtAuthMiddleware, ClientRoute);
   app.use("/subscriptionPlan", jwtAuthMiddleware, SubscriptionPlanRoute);

@@ -26,7 +26,7 @@ const mainLayout = (app) => {
     app.use("/users", authMiddleware_1.jwtAuthMiddleware, Index_1.UserRoute);
     app.use("/dashboard", authMiddleware_1.jwtAuthMiddleware, Index_1.DashBoardRoute);
     app.use("/permission", authMiddleware_1.jwtAuthMiddleware, Index_1.PermissionRoute);
-    app.use("/templateContent", authMiddleware_1.jwtAuthMiddleware, Index_1.TemplateRoute);
+    app.use("/templateContent", authMiddleware_1.jwtAuthMiddleware, Index_1.TemplateRoute); // * new approach
     app.use("/dietitianService", authMiddleware_1.jwtAuthMiddleware, Index_1.DietitianServiceRoute);
     app.use("/clientEnquiry", authMiddleware_1.jwtAuthMiddleware, Index_1.ClientRoute);
     app.use("/subscriptionPlan", authMiddleware_1.jwtAuthMiddleware, Index_1.SubscriptionPlanRoute);

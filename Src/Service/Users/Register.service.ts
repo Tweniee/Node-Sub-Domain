@@ -2,6 +2,7 @@ import { expressRequest, expressResponse } from "../../Dependencies/index";
 import { hashPassword } from "../../Middleware/Password/passwordMiddleware";
 import { UserModel } from "../../Model/Index";
 import { searchRoleByRoleName } from "../Roles/Role.service";
+import { createNewTemplateContentService } from "../Template/NewTemplate/TemplateContent.Service";
 
 export const registerService = async (req: expressRequest): Promise<any> => {
   //* Extract user data from request body
@@ -33,6 +34,7 @@ export const registerService = async (req: expressRequest): Promise<any> => {
     sessionStartTime,
     phoneNumber,
   });
+  await createNewTemplateContentService(user._id);
   return user;
 };
 

@@ -28,7 +28,7 @@ const createDashboardPropertyController = (req, res) => __awaiter(void 0, void 0
 });
 exports.createDashboardPropertyController = createDashboardPropertyController;
 const updateDashboardPropertyController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, role, propertyId, image } = req.body;
+    const { name, role, propertyId, image, route } = req.body;
     // * checks if the property is available or not
     const isValidProperty = yield (0, Dashboard_Service_1.getPropertyByPropertyIdService)(propertyId);
     if (isValidProperty.length == 0) {
@@ -39,7 +39,7 @@ const updateDashboardPropertyController = (req, res) => __awaiter(void 0, void 0
         });
     }
     // * if property is available then update it and return
-    const updatedProperty = yield (0, Dashboard_Service_1.updateDashBoardPropertyService)(name, role, propertyId, image);
+    const updatedProperty = yield (0, Dashboard_Service_1.updateDashBoardPropertyService)(name, role, propertyId, route, image);
     return (0, Response_helper_1.successResponse)(res, {
         message: ResponseMessage_1.default.PROPERTY_UPDATED,
         data: updatedProperty,

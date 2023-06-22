@@ -50,10 +50,11 @@ export const getAllUserService = async () => {
 };
 
 export const getSingleUserService = async (userId: Types.ObjectId) => {
+  console.log(userId)
   const user = await UserModel.aggregate([
     {
       $match: {
-        _id: { $eq: userId },
+        _id: { $eq: new Types.ObjectId(userId) },
         isActive: true,
         isDeleted: false,
       },
@@ -94,6 +95,7 @@ export const getSingleUserService = async (userId: Types.ObjectId) => {
       },
     },
   ]);
+  console.log(user)
   return user;
 };
 

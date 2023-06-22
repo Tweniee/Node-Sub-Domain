@@ -5,13 +5,14 @@ import ServiceRoute from "./Services/Service.Routes";
 import UserRoute from "./Users/Users.routes";
 import DashBoardRoute from "./Dashboard/Dashboard.Routes";
 import PermissionRoute from "./Dashboard/Permissions/Permission.Routes";
-import TemplateRoute from "./Templates/Template.Routes";
 import DietitianServiceRoute from "./DietitianService/DietitianService.Routes"
 import ClientRoute from "./Client/Client.Routes"
 import SubscriptionPlanRoute from "./Subscription/Subscription.Routes"
 import EnquiryRoute from "./Enquiry/Enquiry.Routes"
 import ReplyRoute from "./Enquiry/Reply/Reply.Routes"
+import TemplateRoute from "./Template/Template.routes"
 export {
+  TemplateRoute,
   RegisterRoute,
   UserRoute,
   loginRoute,
@@ -19,7 +20,6 @@ export {
   ServiceRoute,
   DashBoardRoute,
   PermissionRoute,
-  TemplateRoute,
   DietitianServiceRoute,
   ClientRoute,
   SubscriptionPlanRoute,

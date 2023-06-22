@@ -33,11 +33,12 @@ export const updateDashBoardPropertyService = async (
   name: string,
   role: Types.ObjectId[],
   propertyId: Types.ObjectId,
+  route: string,
   image: string
 ) => {
   const updatedProperty = await DashboardModel.findOneAndUpdate(
     { _id: { $eq: new Types.ObjectId(propertyId) } },
-    { $set: { name, role, image } },
+    { $set: { name, role, route, image } },
     { new: true }
   );
 
@@ -86,7 +87,7 @@ export const getPropertyByPropertyIdService = async (
     },
     {
       $project: {
-         isActive: 0,
+        isActive: 0,
         isDeleted: 0,
         createdAt: 0,
         updatedAt: 0,
@@ -199,7 +200,7 @@ export const getAllPermissionService = async (
       },
     },
   ]);
-  console.log(permission)
+  console.log(permission);
   if (permission.length == 0) {
     return { permissionId: null };
   }

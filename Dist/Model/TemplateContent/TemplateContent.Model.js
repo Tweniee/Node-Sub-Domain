@@ -1,49 +1,43 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TemplateContentModel = void 0;
 const mongoose_1 = require("mongoose");
 const commonOptions_1 = require("../Constants/commonOptions");
 // Define the Mongoose schema
 const templateContentInfoSchema = new mongoose_1.Schema({
-    tabName: {
-        type: mongoose_1.Types.ObjectId,
-        ref: "Dashboard",
+    tabName: { type: mongoose_1.Schema.Types.ObjectId, ref: "dashboard", required: true },
+    sectionOne: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "templateBannerSection",
         required: true,
     },
-    parentTab: {
-        type: mongoose_1.Types.ObjectId,
-        ref: "templateContent",
-        required: false,
-        default: null,
-    },
-    children: [
+    sectionTwo: [
         {
-            type: mongoose_1.Types.ObjectId,
-            ref: "templateContent",
-            required: false,
-            default: null,
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: "templateBannerCards",
+            required: true,
         },
     ],
-    dietitian: {
-        type: mongoose_1.Types.ObjectId,
-        ref: "users",
+    sectionThree: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "templateExperienceSection",
         required: true,
     },
-    title: {
-        type: String,
+    sectionFour: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "templateGrowthSection",
         required: true,
     },
-    subTitle: {
-        type: String,
-        required: false,
-    },
-    description: {
-        type: String,
+    sectionFive: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "templateAboutSection",
         required: true,
     },
+    dietitian: { type: mongoose_1.Schema.Types.ObjectId, ref: "users", required: true },
 }, {
     timestamps: true,
     versionKey: false,
 });
 templateContentInfoSchema.add(commonOptions_1.commonOptions);
 // Define the Mongoose model for the collection
-exports.default = (0, mongoose_1.model)("templateContent", templateContentInfoSchema);
+exports.TemplateContentModel = (0, mongoose_1.model)("templateContent", templateContentInfoSchema);

@@ -22,10 +22,18 @@ export function authorize(allowedRoles: string[]) {
     next: expressNextFunction
   ) => {
     const { userId } = req;
-    console.log(userId)
+    console.log(userId);
     const user = await getSingleUserService(new Types.ObjectId(userId));
-    const role = user[0].role;
-    console.log(role)
+    console.log("user", user);
+    if (user.length == 0) {
+      return errorResponse(res, {
+        statusCode: StatusCodes.FORBIDDEN,
+        message: ResponseMessage.INVALID_ROLE,
+        errors: ResponseMessage.FORBIDDEN,
+      }); // The user is not authorized, send a 403 Forbidden response
+    }
+    const role = user[0]?.role;
+    console.log(role);
     const userRole: any = role;
     if (isAuthorized(userRole, allowedRoles)) {
       next(); // The user is authorized, continue with the next middleware function

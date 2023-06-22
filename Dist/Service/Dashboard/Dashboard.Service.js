@@ -35,8 +35,8 @@ const createDashboard_Property_Permission_Service = () => __awaiter(void 0, void
     return permission;
 });
 exports.createDashboard_Property_Permission_Service = createDashboard_Property_Permission_Service;
-const updateDashBoardPropertyService = (name, role, propertyId, image) => __awaiter(void 0, void 0, void 0, function* () {
-    const updatedProperty = yield Dashboard_Model_1.default.findOneAndUpdate({ _id: { $eq: new mongoose_1.Types.ObjectId(propertyId) } }, { $set: { name, role, image } }, { new: true });
+const updateDashBoardPropertyService = (name, role, propertyId, route, image) => __awaiter(void 0, void 0, void 0, function* () {
+    const updatedProperty = yield Dashboard_Model_1.default.findOneAndUpdate({ _id: { $eq: new mongoose_1.Types.ObjectId(propertyId) } }, { $set: { name, role, route, image } }, { new: true });
     return updatedProperty;
 });
 exports.updateDashBoardPropertyService = updateDashBoardPropertyService;

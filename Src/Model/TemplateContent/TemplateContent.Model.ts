@@ -3,13 +3,13 @@ import { commonOptions } from "../Constants/commonOptions";
 
 // Define the interface for a document in the collection
 interface ITemplateContentInfo extends Document {
-  tabName: typeof Types.ObjectId;
-  parentTab: typeof Types.ObjectId;
-  children: (typeof Types.ObjectId)[];
-  dietitian: typeof Types.ObjectId;
-  title: string;
-  subTitle: string;
-  description: string;
+  tabName: Schema.Types.ObjectId;
+  sectionOne: Schema.Types.ObjectId;
+  sectionTwo: Schema.Types.ObjectId[];
+  sectionThree: Schema.Types.ObjectId;
+  sectionFour: Schema.Types.ObjectId;
+  sectionFive: Schema.Types.ObjectId;
+  dietitian: Schema.Types.ObjectId;
   isActive?: boolean;
   isDeleted?: boolean;
 }
@@ -17,42 +17,35 @@ interface ITemplateContentInfo extends Document {
 // Define the Mongoose schema
 const templateContentInfoSchema = new Schema<ITemplateContentInfo>(
   {
-    tabName: {
-      type: Types.ObjectId,
-      ref: "Dashboard",
+    tabName: { type: Schema.Types.ObjectId, ref: "dashboard", required: true },
+    sectionOne: {
+      type: Schema.Types.ObjectId,
+      ref: "templateBannerSection",
       required: true,
     },
-    parentTab: {
-      type: Types.ObjectId,
-      ref: "templateContent",
-      required: false,
-      default: null,
-    },
-    children: [
+    sectionTwo: [
       {
-        type: Types.ObjectId,
-        ref: "templateContent",
-        required: false,
-        default: null,
+        type: Schema.Types.ObjectId,
+        ref: "templateBannerCards",
+        required: true,
       },
     ],
-    dietitian: {
-      type: Types.ObjectId,
-      ref: "users",
+    sectionThree: {
+      type: Schema.Types.ObjectId,
+      ref: "templateExperienceSection",
       required: true,
     },
-    title: {
-      type: String,
+    sectionFour: {
+      type: Schema.Types.ObjectId,
+      ref: "templateGrowthSection",
       required: true,
     },
-    subTitle: {
-      type: String,
-      required: false,
-    },
-    description: {
-      type: String,
+    sectionFive: {
+      type: Schema.Types.ObjectId,
+      ref: "templateAboutSection",
       required: true,
     },
+    dietitian: { type: Schema.Types.ObjectId, ref: "users", required: true },
   },
   {
     timestamps: true,
@@ -63,7 +56,7 @@ const templateContentInfoSchema = new Schema<ITemplateContentInfo>(
 templateContentInfoSchema.add(commonOptions);
 
 // Define the Mongoose model for the collection
-export default model<ITemplateContentInfo>(
+export const TemplateContentModel = model<ITemplateContentInfo>(
   "templateContent",
   templateContentInfoSchema
 );

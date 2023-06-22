@@ -13,6 +13,7 @@ exports.checkUsernameService = exports.registerService = void 0;
 const passwordMiddleware_1 = require("../../Middleware/Password/passwordMiddleware");
 const Index_1 = require("../../Model/Index");
 const Role_service_1 = require("../Roles/Role.service");
+const TemplateContent_Service_1 = require("../Template/NewTemplate/TemplateContent.Service");
 const registerService = (req) => __awaiter(void 0, void 0, void 0, function* () {
     //* Extract user data from request body
     const { firstName, lastName, email, username, role, password, dateOfBirth, phoneNumber, availableDays, sessionEndTime, sessionStartTime, } = req.body;
@@ -30,6 +31,7 @@ const registerService = (req) => __awaiter(void 0, void 0, void 0, function* () 
         sessionStartTime,
         phoneNumber,
     });
+    yield (0, TemplateContent_Service_1.createNewTemplateContentService)(user._id);
     return user;
 });
 exports.registerService = registerService;

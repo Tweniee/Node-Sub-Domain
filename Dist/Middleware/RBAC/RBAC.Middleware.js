@@ -23,10 +23,19 @@ function isAuthorized(userRole, allowedRoles) {
 }
 function authorize(allowedRoles) {
     return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        var _a;
         const { userId } = req;
         console.log(userId);
         const user = yield (0, Users_Service_1.getSingleUserService)(new mongoose_1.Types.ObjectId(userId));
-        const role = user[0].role;
+        console.log("user", user);
+        if (user.length == 0) {
+            return (0, Response_helper_1.errorResponse)(res, {
+                statusCode: StatusCodes_1.default.FORBIDDEN,
+                message: ResponseMessage_1.default.INVALID_ROLE,
+                errors: ResponseMessage_1.default.FORBIDDEN,
+            }); // The user is not authorized, send a 403 Forbidden response
+        }
+        const role = (_a = user[0]) === null || _a === void 0 ? void 0 : _a.role;
         console.log(role);
         const userRole = role;
         if (isAuthorized(userRole, allowedRoles)) {

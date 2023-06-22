@@ -31,7 +31,7 @@ export const updateDashboardPropertyController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  const { name, role, propertyId, image } = req.body;
+  const { name, role, propertyId, image, route } = req.body;
   // * checks if the property is available or not
   const isValidProperty = await getPropertyByPropertyIdService(propertyId);
   if (isValidProperty.length == 0) {
@@ -46,6 +46,7 @@ export const updateDashboardPropertyController = async (
     name,
     role,
     propertyId,
+    route,
     image
   );
   return successResponse(res, {
