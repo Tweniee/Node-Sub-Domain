@@ -63,9 +63,9 @@ const getSectionValueController = (req, res) => __awaiter(void 0, void 0, void 0
 exports.getSectionValueController = getSectionValueController;
 const updateBannerSectionController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id, bg_Image, subHeading, text } = req.body;
-    const banner = yield (0, updateTemplateContent_Service_1.getOldSectionOneService)(_id);
-    yield (0, updateTemplateContent_Service_1.updateTextService)(banner.text._id, text);
-    yield (0, updateTemplateContent_Service_1.updateTextService)(banner.text.subHeading._id, subHeading);
+    const sectionData = yield (0, updateTemplateContent_Service_1.getOldSectionOneService)(_id);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text._id, text);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text.subHeading._id, subHeading);
     let images = "";
     if (!req.files || Object.keys(req.files).length === 0) {
         images = bg_Image;
@@ -100,5 +100,17 @@ const updateBannerSectionController = (req, res) => __awaiter(void 0, void 0, vo
 });
 exports.updateBannerSectionController = updateBannerSectionController;
 const updateCardsSectionController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { items: items, } = req.body;
+    items.forEach((item) => __awaiter(void 0, void 0, void 0, function* () {
+        const { icon, subHeading, text, _id } = item;
+        const sectionData = yield (0, updateTemplateContent_Service_1.getOldSectionTwoService)(_id);
+        yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text._id, text);
+        yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text.subHeading._id, subHeading);
+        yield (0, updateTemplateContent_Service_1.updateCardIconService)(_id, icon);
+    }));
+    return (0, Response_helper_1.successResponse)(res, {
+        message: ResponseMessage_1.default.SUCCESS,
+        data: items,
+    });
 });
 exports.updateCardsSectionController = updateCardsSectionController;

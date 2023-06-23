@@ -14,7 +14,9 @@ import {
 } from "../../Service/Template/NewTemplate/TemplateContent.Service";
 import {
   getOldSectionOneService,
+  getOldSectionTwoService,
   updateBannerImageService,
+  updateCardIconService,
   updateTextService,
 } from "../../Service/Template/NewTemplate/updateTemplateContent.Service";
 import StatusCodes from "../../Constants/StatusCodes";
@@ -75,9 +77,9 @@ export const updateBannerSectionController = async (
   res: expressResponse
 ) => {
   const { _id, bg_Image, subHeading, text } = req.body;
-  const banner = await getOldSectionOneService(_id);
-  await updateTextService(banner.text._id, text);
-  await updateTextService(banner.text.subHeading._id, subHeading);
+  const sectionData = await getOldSectionOneService(_id);
+  await updateTextService(sectionData.text._id, text);
+  await updateTextService(sectionData.text.subHeading._id, subHeading);
   let images = "";
   if (!req.files || Object.keys(req.files).length === 0) {
     images = bg_Image;
@@ -118,5 +120,25 @@ export const updateCardsSectionController = async (
   req: expressRequest,
   res: expressResponse
 ) => {
-  
+  const {
+    items: items,
+  }: {
+    items: {
+      icon: string;
+      subHeading: string;
+      text: string;
+      _id: string;
+    }[];
+  } = req.body;
+  items.forEach(async (item) => {
+    const { icon, subHeading, text, _id } = item;
+    const sectionData = await getOldSectionTwoService(_id);
+    await updateTextService(sectionData.text._id, text);
+    await updateTextService(sectionData.text.subHeading._id, subHeading);
+    await updateCardIconService(_id, icon);
+  });
+  return successResponse(res, {
+    message: ResponseMessage.SUCCESS,
+    data: items,
+  });
 };

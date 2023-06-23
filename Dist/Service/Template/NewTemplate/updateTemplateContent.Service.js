@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateBannerImageService = exports.updateTextService = exports.getOldSectionOneService = void 0;
+exports.updateCardIconService = exports.getOldSectionTwoService = exports.updateBannerImageService = exports.updateTextService = exports.getOldSectionOneService = void 0;
 const mongoose_1 = require("mongoose");
 const Banner_Model_1 = require("../../../Model/TemplateContent/Banner/Banner.Model");
 const Text_model_1 = require("../../../Model/TemplateContent/Text/Text.model");
+const Cards_Model_1 = require("../../../Model/TemplateContent/Cards/Cards.Model");
 const getOldSectionOneService = (bannerId) => __awaiter(void 0, void 0, void 0, function* () {
     const sectionOne = yield Banner_Model_1.TemplateBannerSectionModel.aggregate([
         {
@@ -119,3 +120,101 @@ const updateBannerImageService = (bannerId, bg_image) => __awaiter(void 0, void 
     return bannerImage;
 });
 exports.updateBannerImageService = updateBannerImageService;
+// * Section Two
+const getOldSectionTwoService = (cardId) => __awaiter(void 0, void 0, void 0, function* () {
+    const cards = yield Cards_Model_1.TemplateCardSectionModel.aggregate([
+        {
+            $match: {
+                _id: new mongoose_1.Types.ObjectId(cardId),
+                isActive: true,
+                isDeleted: false,
+            },
+        },
+        {
+            $project: {
+                isActive: 0,
+                isDeleted: 0,
+                createdAt: 0,
+                updatedAt: 0,
+            },
+        },
+        {
+            $lookup: {
+                from: "templatetexts",
+                localField: "text",
+                foreignField: "_id",
+                as: "text",
+                pipeline: [
+                    {
+                        $match: {
+                            isActive: true,
+                            isDeleted: false,
+                        },
+                    },
+                    {
+                        $project: {
+                            isActive: 0,
+                            isDeleted: 0,
+                            createdAt: 0,
+                            updatedAt: 0,
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "templatetexts",
+                            localField: "subHeading",
+                            foreignField: "_id",
+                            as: "subHeading",
+                            pipeline: [
+                                {
+                                    $match: {
+                                        isActive: true,
+                                        isDeleted: false,
+                                    },
+                                },
+                                {
+                                    $project: {
+                                        isActive: 0,
+                                        isDeleted: 0,
+                                        createdAt: 0,
+                                        updatedAt: 0,
+                                    },
+                                },
+                                {
+                                    $project: {
+                                        _id: 1,
+                                        text: 1,
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                    {
+                        $unwind: {
+                            path: "$subHeading",
+                        },
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            subHeading: 1,
+                            text: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $unwind: {
+                path: "$text",
+            },
+        },
+    ]);
+    return cards[0];
+});
+exports.getOldSectionTwoService = getOldSectionTwoService;
+const updateCardIconService = (cardId, icon) => __awaiter(void 0, void 0, void 0, function* () {
+    const card = yield Cards_Model_1.TemplateCardSectionModel.findOneAndUpdate({ _id: new mongoose_1.Types.ObjectId(cardId) }, { $set: { icon: icon } });
+    return card;
+});
+exports.updateCardIconService = updateCardIconService;

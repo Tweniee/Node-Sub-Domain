@@ -17,4 +17,6 @@ router.get("/getAllSections", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.d
 router.get("/getSectionData/:sectionId", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.getSectionValueController));
 // *<--------------------------------Update Banner Route--------------------------------------------------->
 router.patch("/updateBannerSection", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.updateBannerSectionController));
+// *<--------------------------------Update Cards Route--------------------------------------------------->
+router.patch("/updateCardsSection", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.updateCardsSectionController));
 exports.default = router;
