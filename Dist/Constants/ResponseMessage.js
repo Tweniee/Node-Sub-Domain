@@ -9,6 +9,7 @@ exports.default = {
     // *Auth
     INVALID_ROLE: "The Role is Forbidden",
     FORBIDDEN: "Forbidden",
+    ERROR_FILE_UPLOAD: "Error uploading file",
     USERNAME_ALREADY_EXISTS: "Username already taken",
     USERNAME_AVAILABLE: "Username available",
     EMAIL_DOES_NOT_EXIST: "Email Does Not Exists.",

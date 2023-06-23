@@ -60,7 +60,6 @@ const getAllUserService = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getAllUserService = getAllUserService;
 const getSingleUserService = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(userId);
     const user = yield Index_1.UserModel.aggregate([
         {
             $match: {
@@ -105,7 +104,6 @@ const getSingleUserService = (userId) => __awaiter(void 0, void 0, void 0, funct
             },
         },
     ]);
-    console.log(user);
     return user;
 });
 exports.getSingleUserService = getSingleUserService;

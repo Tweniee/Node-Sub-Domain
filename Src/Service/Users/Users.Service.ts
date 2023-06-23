@@ -50,7 +50,6 @@ export const getAllUserService = async () => {
 };
 
 export const getSingleUserService = async (userId: Types.ObjectId) => {
-  console.log(userId)
   const user = await UserModel.aggregate([
     {
       $match: {
@@ -95,7 +94,6 @@ export const getSingleUserService = async (userId: Types.ObjectId) => {
       },
     },
   ]);
-  console.log(user)
   return user;
 };
 

@@ -87,7 +87,6 @@ export const updateServiceController = async (
     });
   } else {
     const file: any = req.files.image;
-    console.log(file);
     file.mv(
       path.join(__dirname, "/../../uploads/", transformImageName(file.name)),
       async (error: Error) => {

@@ -3,6 +3,7 @@ import {
   getSectionValueController,
   getSectionsController,
   getTemplateDataController,
+  updateBannerSectionController,
 } from "../../Controller/Template/Template.Controller";
 import { expressRouter } from "../../Dependencies";
 import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
@@ -29,6 +30,13 @@ router.get(
   "/getSectionData/:sectionId",
   authorize([UniqueValues.DIETITIAN, UniqueValues.SUPER_ADMIN]),
   asyncMiddleware(getSectionValueController)
+);
+
+// *<--------------------------------Update Banner Route--------------------------------------------------->
+router.patch(
+  "/updateBannerSection",
+  authorize([UniqueValues.DIETITIAN, UniqueValues.SUPER_ADMIN]),
+  asyncMiddleware(updateBannerSectionController)
 );
 
 export default router;

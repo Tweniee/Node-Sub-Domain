@@ -22,9 +22,7 @@ export function authorize(allowedRoles: string[]) {
     next: expressNextFunction
   ) => {
     const { userId } = req;
-    console.log(userId);
     const user = await getSingleUserService(new Types.ObjectId(userId));
-    console.log("user", user);
     if (user.length == 0) {
       return errorResponse(res, {
         statusCode: StatusCodes.FORBIDDEN,

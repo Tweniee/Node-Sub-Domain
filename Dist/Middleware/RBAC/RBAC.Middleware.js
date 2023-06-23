@@ -25,9 +25,7 @@ function authorize(allowedRoles) {
     return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         var _a;
         const { userId } = req;
-        console.log(userId);
         const user = yield (0, Users_Service_1.getSingleUserService)(new mongoose_1.Types.ObjectId(userId));
-        console.log("user", user);
         if (user.length == 0) {
             return (0, Response_helper_1.errorResponse)(res, {
                 statusCode: StatusCodes_1.default.FORBIDDEN,

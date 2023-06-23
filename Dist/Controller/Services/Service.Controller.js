@@ -79,7 +79,6 @@ const updateServiceController = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
     else {
         const file = req.files.image;
-        console.log(file);
         file.mv(path_1.default.join(__dirname, "/../../uploads/", (0, fileUpload_helper_1.transformImageName)(file.name)), (error) => __awaiter(void 0, void 0, void 0, function* () {
             if (error) {
                 console.error(error);
