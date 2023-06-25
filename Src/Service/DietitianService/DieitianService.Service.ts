@@ -175,6 +175,7 @@ export const getAllDietitianService_Service = async (dietitian: string) => {
         isDeleted: 0,
         createdAt: 0,
         updatedAt: 0,
+        availableDays: 0,
       },
     },
   ]);

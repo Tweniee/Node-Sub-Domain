@@ -13,10 +13,15 @@ import {
   getTemplateDataService,
 } from "../../Service/Template/NewTemplate/TemplateContent.Service";
 import {
+  getOldSectionFiveService,
+  getOldSectionFourService,
   getOldSectionOneService,
+  getOldSectionThreeService,
   getOldSectionTwoService,
   updateBannerImageService,
   updateCardIconService,
+  updateExpSectionService,
+  updateGrowthSectionService,
   updateTextService,
 } from "../../Service/Template/NewTemplate/updateTemplateContent.Service";
 import StatusCodes from "../../Constants/StatusCodes";
@@ -140,5 +145,139 @@ export const updateCardsSectionController = async (
   return successResponse(res, {
     message: ResponseMessage.SUCCESS,
     data: items,
+  });
+};
+
+export const updateExpSectionController = async (
+  req: expressRequest,
+  res: expressResponse
+) => {
+  const {
+    bg_Color,
+    cardImage,
+    icon,
+    imageSubHeading,
+    imageText,
+    subHeading,
+    text,
+    _id,
+  } = req.body;
+  const sectionData = await getOldSectionThreeService(_id);
+  await updateTextService(sectionData.text._id, text);
+  await updateTextService(sectionData.text.subHeading._id, subHeading);
+  await updateTextService(sectionData.imageText._id, imageText);
+  await updateTextService(
+    sectionData.imageText.subHeading._id,
+    imageSubHeading
+  );
+  let images = "";
+  if (!req.files || Object.keys(req.files).length === 0) {
+    images = cardImage;
+    const expData = await updateExpSectionService(_id, bg_Color, icon, images);
+    return successResponse(res, {
+      message: ResponseMessage.SUCCESS,
+      data: expData,
+    });
+  } else {
+    const file: any = req.files.cardImage;
+    file.mv(
+      path.join(__dirname, "/../../uploads/", transformImageName(file.name)),
+      async (error: Error) => {
+        if (error) {
+          console.error(error);
+          console.log({ message: ResponseMessage.ERROR_FILE_UPLOAD });
+          return errorResponse(res, {
+            statusCode: StatusCodes.BAD_REQUEST,
+            message: ResponseMessage.ERROR_FILE_UPLOAD,
+            errors: error,
+          });
+        }
+
+        // File successfully uploaded
+        console.log({ message: "File uploaded successfully" });
+        images = transformImageName(file.name);
+        const expData = await updateExpSectionService(
+          _id,
+          bg_Color,
+          icon,
+          images
+        );
+        return successResponse(res, {
+          message: ResponseMessage.SUCCESS,
+          data: expData,
+        });
+      }
+    );
+  }
+};
+
+export const updateGrowthSectionController = async (
+  req: expressRequest,
+  res: expressResponse
+) => {
+  const { bulletIcons, bulletPoints, cardImage, icon, subHeading, text, _id } =
+    req.body;
+  const sectionData = await getOldSectionFourService(_id);
+  await updateTextService(sectionData.text._id, text);
+  await updateTextService(sectionData.text.subHeading._id, subHeading);
+  let images = "";
+  if (!req.files || Object.keys(req.files).length === 0) {
+    images = cardImage;
+    const growthData = await updateGrowthSectionService(
+      _id,
+      bulletIcons,
+      bulletPoints,
+      icon,
+      images
+    );
+    return successResponse(res, {
+      message: ResponseMessage.SUCCESS,
+      data: growthData,
+    });
+  } else {
+    const file: any = req.files.cardImage;
+    file.mv(
+      path.join(__dirname, "/../../uploads/", transformImageName(file.name)),
+      async (error: Error) => {
+        if (error) {
+          console.error(error);
+          console.log({ message: ResponseMessage.ERROR_FILE_UPLOAD });
+          return errorResponse(res, {
+            statusCode: StatusCodes.BAD_REQUEST,
+            message: ResponseMessage.ERROR_FILE_UPLOAD,
+            errors: error,
+          });
+        }
+
+        // File successfully uploaded
+        console.log({ message: "File uploaded successfully" });
+        images = transformImageName(file.name);
+        const growthData = await updateGrowthSectionService(
+          _id,
+          bulletIcons,
+          bulletPoints,
+          icon,
+          images
+        );
+        return successResponse(res, {
+          message: ResponseMessage.SERVICE_UPDATED_SUCCESSFULLY,
+          data: growthData,
+        });
+      }
+    );
+  }
+};
+
+export const updateAboutSectionController = async (
+  req: expressRequest,
+  res: expressResponse
+) => {
+  const { text, subHeading, _id } = req.body;
+  const sectionData = await getOldSectionFiveService(_id);
+  await updateTextService(sectionData.text._id, text);
+  await updateTextService(sectionData.text.subHeading._id, subHeading);
+  return successResponse(res, {
+    message: ResponseMessage.SUCCESS,
+    data: sectionData,
   });
 };

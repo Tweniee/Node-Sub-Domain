@@ -222,3 +222,15 @@ export const getAllDietitianServiceController = async (
     data: dietitianService,
   });
 };
+
+export const getAllLandingDietitianServiceController = async (
+  req: expressRequest,
+  res: expressResponse
+) => {
+  const dietitian = req.userId;
+  const dietitianService = await getAllDietitianService_Service(dietitian);
+  return successResponse(res, {
+    message: ResponseMessage.SUCCESS,
+    data: dietitianService,
+  });
+};

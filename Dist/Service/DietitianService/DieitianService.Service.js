@@ -153,6 +153,7 @@ const getAllDietitianService_Service = (dietitian) => __awaiter(void 0, void 0, 
                 isDeleted: 0,
                 createdAt: 0,
                 updatedAt: 0,
+                availableDays: 0,
             },
         },
     ]);

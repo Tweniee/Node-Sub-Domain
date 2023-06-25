@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllDietitianServiceController = exports.deleteDietitianServiceController = exports.updateDietitianServiceController = exports.getSingleDietitianServiceController = exports.createDietitianServiceController = void 0;
+exports.getAllLandingDietitianServiceController = exports.getAllDietitianServiceController = exports.deleteDietitianServiceController = exports.updateDietitianServiceController = exports.getSingleDietitianServiceController = exports.createDietitianServiceController = void 0;
 const mongoose_1 = require("mongoose");
 const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessage"));
 const Response_helper_1 = require("../../Helper/Response.helper");
@@ -174,3 +174,12 @@ const getAllDietitianServiceController = (req, res) => __awaiter(void 0, void 0,
     });
 });
 exports.getAllDietitianServiceController = getAllDietitianServiceController;
+const getAllLandingDietitianServiceController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const dietitian = req.userId;
+    const dietitianService = yield (0, DieitianService_Service_1.getAllDietitianService_Service)(dietitian);
+    return (0, Response_helper_1.successResponse)(res, {
+        message: ResponseMessage_1.default.SUCCESS,
+        data: dietitianService,
+    });
+});
+exports.getAllLandingDietitianServiceController = getAllLandingDietitianServiceController;

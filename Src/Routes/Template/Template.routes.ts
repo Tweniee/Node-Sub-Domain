@@ -3,8 +3,11 @@ import {
   getSectionValueController,
   getSectionsController,
   getTemplateDataController,
+  updateAboutSectionController,
   updateBannerSectionController,
   updateCardsSectionController,
+  updateExpSectionController,
+  updateGrowthSectionController,
 } from "../../Controller/Template/Template.Controller";
 import { expressRouter } from "../../Dependencies";
 import { asyncMiddleware } from "../../Middleware/AsyncMiddleware";
@@ -45,6 +48,27 @@ router.patch(
   "/updateCardsSection",
   authorize([UniqueValues.DIETITIAN, UniqueValues.SUPER_ADMIN]),
   asyncMiddleware(updateCardsSectionController)
+);
+
+// *<--------------------------------Update Exp Route--------------------------------------------------->
+router.patch(
+  "/updateExpSection",
+  authorize([UniqueValues.DIETITIAN, UniqueValues.SUPER_ADMIN]),
+  asyncMiddleware(updateExpSectionController)
+);
+
+// *<--------------------------------Update Growth Route--------------------------------------------------->
+router.patch(
+  "/updateGrowthSection",
+  authorize([UniqueValues.DIETITIAN, UniqueValues.SUPER_ADMIN]),
+  asyncMiddleware(updateGrowthSectionController)
+);
+
+// *<--------------------------------Update About Route--------------------------------------------------->
+router.patch(
+  "/updateAboutSection",
+  authorize([UniqueValues.DIETITIAN, UniqueValues.SUPER_ADMIN]),
+  asyncMiddleware(updateAboutSectionController)
 );
 
 export default router;

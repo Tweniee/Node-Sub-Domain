@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateCardsSectionController = exports.updateBannerSectionController = exports.getSectionValueController = exports.getSectionsController = exports.getTemplateDataController = void 0;
+exports.updateAboutSectionController = exports.updateGrowthSectionController = exports.updateExpSectionController = exports.updateCardsSectionController = exports.updateBannerSectionController = exports.getSectionValueController = exports.getSectionsController = exports.getTemplateDataController = void 0;
 const ResponseMessage_1 = __importDefault(require("../../Constants/ResponseMessage"));
 const Response_helper_1 = require("../../Helper/Response.helper");
 const path_1 = __importDefault(require("path"));
@@ -114,3 +114,92 @@ const updateCardsSectionController = (req, res) => __awaiter(void 0, void 0, voi
     });
 });
 exports.updateCardsSectionController = updateCardsSectionController;
+const updateExpSectionController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { bg_Color, cardImage, icon, imageSubHeading, imageText, subHeading, text, _id, } = req.body;
+    const sectionData = yield (0, updateTemplateContent_Service_1.getOldSectionThreeService)(_id);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text._id, text);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text.subHeading._id, subHeading);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.imageText._id, imageText);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.imageText.subHeading._id, imageSubHeading);
+    let images = "";
+    if (!req.files || Object.keys(req.files).length === 0) {
+        images = cardImage;
+        const expData = yield (0, updateTemplateContent_Service_1.updateExpSectionService)(_id, bg_Color, icon, images);
+        return (0, Response_helper_1.successResponse)(res, {
+            message: ResponseMessage_1.default.SUCCESS,
+            data: expData,
+        });
+    }
+    else {
+        const file = req.files.cardImage;
+        file.mv(path_1.default.join(__dirname, "/../../uploads/", (0, fileUpload_helper_1.transformImageName)(file.name)), (error) => __awaiter(void 0, void 0, void 0, function* () {
+            if (error) {
+                console.error(error);
+                console.log({ message: ResponseMessage_1.default.ERROR_FILE_UPLOAD });
+                return (0, Response_helper_1.errorResponse)(res, {
+                    statusCode: StatusCodes_1.default.BAD_REQUEST,
+                    message: ResponseMessage_1.default.ERROR_FILE_UPLOAD,
+                    errors: error,
+                });
+            }
+            // File successfully uploaded
+            console.log({ message: "File uploaded successfully" });
+            images = (0, fileUpload_helper_1.transformImageName)(file.name);
+            const expData = yield (0, updateTemplateContent_Service_1.updateExpSectionService)(_id, bg_Color, icon, images);
+            return (0, Response_helper_1.successResponse)(res, {
+                message: ResponseMessage_1.default.SUCCESS,
+                data: expData,
+            });
+        }));
+    }
+});
+exports.updateExpSectionController = updateExpSectionController;
+const updateGrowthSectionController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { bulletIcons, bulletPoints, cardImage, icon, subHeading, text, _id } = req.body;
+    const sectionData = yield (0, updateTemplateContent_Service_1.getOldSectionFourService)(_id);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text._id, text);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text.subHeading._id, subHeading);
+    let images = "";
+    if (!req.files || Object.keys(req.files).length === 0) {
+        images = cardImage;
+        const growthData = yield (0, updateTemplateContent_Service_1.updateGrowthSectionService)(_id, bulletIcons, bulletPoints, icon, images);
+        return (0, Response_helper_1.successResponse)(res, {
+            message: ResponseMessage_1.default.SUCCESS,
+            data: growthData,
+        });
+    }
+    else {
+        const file = req.files.cardImage;
+        file.mv(path_1.default.join(__dirname, "/../../uploads/", (0, fileUpload_helper_1.transformImageName)(file.name)), (error) => __awaiter(void 0, void 0, void 0, function* () {
+            if (error) {
+                console.error(error);
+                console.log({ message: ResponseMessage_1.default.ERROR_FILE_UPLOAD });
+                return (0, Response_helper_1.errorResponse)(res, {
+                    statusCode: StatusCodes_1.default.BAD_REQUEST,
+                    message: ResponseMessage_1.default.ERROR_FILE_UPLOAD,
+                    errors: error,
+                });
+            }
+            // File successfully uploaded
+            console.log({ message: "File uploaded successfully" });
+            images = (0, fileUpload_helper_1.transformImageName)(file.name);
+            const growthData = yield (0, updateTemplateContent_Service_1.updateGrowthSectionService)(_id, bulletIcons, bulletPoints, icon, images);
+            return (0, Response_helper_1.successResponse)(res, {
+                message: ResponseMessage_1.default.SERVICE_UPDATED_SUCCESSFULLY,
+                data: growthData,
+            });
+        }));
+    }
+});
+exports.updateGrowthSectionController = updateGrowthSectionController;
+const updateAboutSectionController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { text, subHeading, _id } = req.body;
+    const sectionData = yield (0, updateTemplateContent_Service_1.getOldSectionFiveService)(_id);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text._id, text);
+    yield (0, updateTemplateContent_Service_1.updateTextService)(sectionData.text.subHeading._id, subHeading);
+    return (0, Response_helper_1.successResponse)(res, {
+        message: ResponseMessage_1.default.SUCCESS,
+        data: sectionData,
+    });
+});
+exports.updateAboutSectionController = updateAboutSectionController;

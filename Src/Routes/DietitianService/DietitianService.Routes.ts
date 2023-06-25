@@ -2,6 +2,7 @@ import {
   createDietitianServiceController,
   deleteDietitianServiceController,
   getAllDietitianServiceController,
+  getAllLandingDietitianServiceController,
   getSingleDietitianServiceController,
   updateDietitianServiceController,
 } from "../../Controller/DietitianService/DietitianService.Controller";
@@ -48,6 +49,12 @@ router.get(
   "/getAll",
   checkTabNameValidation,
   asyncMiddleware(getAllDietitianServiceController)
+);
+
+// *<--------------------Get All Dietitian For Landing Services Route---------------------------->
+router.get(
+  "/getAllLanding",
+  asyncMiddleware(getAllLandingDietitianServiceController)
 );
 
 export default router;

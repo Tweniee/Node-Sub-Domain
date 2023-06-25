@@ -19,4 +19,10 @@ router.get("/getSectionData/:sectionId", (0, RBAC_Middleware_1.authorize)([Uniqu
 router.patch("/updateBannerSection", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.updateBannerSectionController));
 // *<--------------------------------Update Cards Route--------------------------------------------------->
 router.patch("/updateCardsSection", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.updateCardsSectionController));
+// *<--------------------------------Update Exp Route--------------------------------------------------->
+router.patch("/updateExpSection", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.updateExpSectionController));
+// *<--------------------------------Update Growth Route--------------------------------------------------->
+router.patch("/updateGrowthSection", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.updateGrowthSectionController));
+// *<--------------------------------Update About Route--------------------------------------------------->
+router.patch("/updateAboutSection", (0, RBAC_Middleware_1.authorize)([UniqueValues_1.default.DIETITIAN, UniqueValues_1.default.SUPER_ADMIN]), (0, AsyncMiddleware_1.asyncMiddleware)(Template_Controller_1.updateAboutSectionController));
 exports.default = router;
